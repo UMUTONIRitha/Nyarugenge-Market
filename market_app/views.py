@@ -1,5 +1,7 @@
 from django.shortcuts import render
-#................
-# Create your views here.
+from .models import OrderItem,Order,Grocery,Transaction,Rate,Comment,Profile,Category
+
 def index(request):
-    return render(request, 'index.html')
+    object_list = Grocery.objects.all()
+    # categories = Category.get_category()
+    return render(request,'index.html',{'object_list':object_list })
