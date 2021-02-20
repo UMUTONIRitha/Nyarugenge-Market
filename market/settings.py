@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phone_field',
     'bootstrap4',
+    'crispy_forms',
+    'rest_framework',
+    'widget_tweaks',
+    # 'tinymce',
    
 ]
 
@@ -78,14 +82,16 @@ WSGI_APPLICATION = 'market.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'market_app',
-        'USER': 'uwase',
-    'PASSWORD':'root',
+        'USER': 'wecode',
+    'PASSWORD':'12345',
     }
 }
+
 
 
 # Password validation
@@ -112,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa/Nairobi'
+TIME_ZONE = 'Africa/Kigali'
 
 USE_I18N = True
 
@@ -131,3 +137,9 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CRISPY_TEMPLATE_PACK  = "bootstrap4"
+LOGIN_REDIRECT_URL = 'grocery_list'
+
+LOGOUT_REDIRECT_URL = 'index'
