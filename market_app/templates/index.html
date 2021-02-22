@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    .navigation{
+  
+   
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background: rgb(52, 168, 68);
+    margin-top: 80px;
+    
+}
+.menu{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+
+    
+}
+.menu li{
+    padding: 10px;
+    
+}
+.menu li a{
+    color: rgb(231, 231, 231);
+    font-family: 'Oxygen Mono', monospace;
+    font-size: 14px;
+}
+.formpage{
+    background-image:url("https://res.cloudinary.com/auca/image/upload/v1613923645/veggie_lk82s5.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    height: 90vh;
+}
+h1{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    padding-top: 200px;
+    font-weight: bold;
+}
+</style>
+
+
+    
+   <!-- <div class="navy">
+    <form class="form-inline my-2 my-lg-0" action="/searching" role="search">
+        <input class=" form-control mr-sm-2 bg-light" type="search" name="searchgrocery" placeholder="Search for grocery"
+          aria-label="Search">
+          <button class="btn my-2 my-sm-0 btn-outline-dark" type="submit"><i
+                  class="fas fa-search"></i></button>
+      </form>
+   </div> -->
+
+      
+  
+
+ <div class="navigation">
+      
+
+            <div class="container-fluid">
+
+               
+              
+                    <ul class="menu">
+                        <li class="nav-item active">
+                            <a class="nav-link " href="/about" style="color: black; ">Home<span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link " href="/about" style="color: black;">About Us<span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link " href="/about" style="color: black;">Contact Us<span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                           
+                          <a class="nav-link" href="#">Fruits
+                            <span class="sr-only">(current)</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Vegetables</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Sea Food</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Meat</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Food</a>
+                        </li>
+                
+                      </ul>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                      aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+              
+            </div>
+        </div> 
+        <div class="formpage">
+<h1>SHOP WITH US</h1>
+
+        </div>
+        <h1>FEATURED GROCERIES</h1>
+        <div class="row justify-content-center">
+            {% for object in object_list %}
+    
+
+    
+            <div class="card col-md-3 m-3">
+                <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.groecry_pic.url}}" alt="-------"></a>
+    
+                <div class="card-body">
+                    <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
+                    <p>Price: ${{ object.price }}</p>
+                    <a href="/grocery_list" class="btn btn-warning">Add to Cart</a>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">
+                        View item
+                    </button>
+    
+                    <div class="modal fade" id="{{object.id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ object.name|title }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{object.grocery_pic.url}}" alt="{{object.name}}" class="img-fluid">
+        
+                                    <p class="imgdesc" style="padding-top: 10px;">Description:<span
+                                            style="font-weight: bold;">{{object.description}}</span></p>
+                                    <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p>
+                                    <button class="mr-1 badge badge-info"><i
+                                        class="fas fa-location-arrow"></i>{{object.category}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+            {% endfor %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        

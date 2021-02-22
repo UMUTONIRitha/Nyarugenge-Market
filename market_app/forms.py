@@ -42,4 +42,4 @@ class DeliveryForm(forms.ModelForm):
 class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
-        exclude = ['user', 'grocery']
+        exclude = ['user', 'product']
