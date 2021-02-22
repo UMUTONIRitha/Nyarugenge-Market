@@ -87,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'market_app',
-        'USER': 'wecode',
-    'PASSWORD':'12345',
+        'USER': 'uwase',
+    'PASSWORD':'root',
     }
 }
 

@@ -113,30 +113,29 @@ def signup(request):
             user = form.save()
             group = Group.objects.get(name = 'customer')
             user.groups.add(group)
-            messages.info(request, "Your account has been created syccessfully.")
+            messages.info(request, "Your account has been Created successfully.")
             return redirect("/login")
-        else:
-            form = SignUpForm()
-        return render(request, 'register/register.html',{'form':form})
+    else:
+        form = SignUpForm()
+    return render(request, 'register/register.html', {'form': form}) 
 
-def  profile(request,username):
-
+def profile(request, username):
     my_user_profile = Profile.objects.filter(user=request.user).first()
     my_orders = Order.objects.filter(is_ordered=True, owner=my_user_profile)
     if request.method == 'POST':
-
-        prof_form = UpdateUserProfileForm(request.POST,request.FILES, instance=request.user.profile)
-
+        prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if prof_form.is_valid():
             prof_form.save()
             return redirect(request.path_info)
     else:
         prof_form = UpdateUserProfileForm(instance=request.user.profile)
+
     context = {
-        'prof_form':prof_form,
+        'prof_form': prof_form,
         'my_orders':my_orders,
+
     }
-    return render(request,'profile.html', context)
+    return render(request, 'profile.html', context)
 
 # @login_required(login_url='login')
 def grocery_list(request):
@@ -178,7 +177,7 @@ def get_user_pending_order(request):
         return order[0]
     return 0
 
-# @login_required()
+@login_required()
 def add_to_cart(request, **kwargs):
     user_profile = get_object_or_404(Profile,user=request.user)
     grocery = Grocery.objects.filter(id=kwargs.get('item_id, ""')).first()
@@ -193,7 +192,7 @@ def add_to_cart(request, **kwargs):
     messages.info(request, "item added to cart")
     return redirect(reverse('grocery_list'))
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def delete_from_cart(request,item_id):
     item_to_delete = OrderItem.objects.filter(pk=item_id)
     if item_to_delete.exists():
@@ -201,7 +200,7 @@ def delete_from_cart(request,item_id):
         messages.info(request, "Item has been deleted")
     return redirect(reverse('order_summary'))
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def order_details(request, **kwargs):
     existing_order = get_user_pending_order(request)
     context = {
@@ -209,7 +208,7 @@ def order_details(request, **kwargs):
     }
     return render(request,'shopping_cart/order_summary.html', context)
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def checkout(request, **kwargs):
 
     client_token =222
@@ -234,7 +233,7 @@ def checkout(request, **kwargs):
     }
     return render(request, 'shopping_cart/checkout.html', context)
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def clear_from_cart(request):
 
     current_user = request.user
