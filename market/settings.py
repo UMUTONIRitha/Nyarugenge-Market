@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'widget_tweaks',
-    # 'tinymce',
+    'tinymce',
    
 ]
 

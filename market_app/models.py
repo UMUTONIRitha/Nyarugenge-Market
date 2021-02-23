@@ -1,98 +1,116 @@
 from django.db import models
 from phone_field import PhoneField
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save          
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-# from tinymce.models import HTMlField
+from tinymce.models import HTMLField
 import datetime as dt
 from django.db.models import Q
 import numpy as np
-from creditcards.models import CardNumberField, CardExpiryField,SecurityCodeField
-from django.core.validators import MaxValueValidator
+from creditcards.models import CardNumberField, CardExpiryField, SecurityCodeField
 
 
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=120)
-    second_name = models.CharField(max_length=120)
-    phone = PhoneField(blank=True,help_text='Contact phone number')
-    my_location = models.CharField(max_length=120)
+    first_name = models.CharField(max_length=128)
+    second_name = models.CharField(max_length=128)
+    phone = PhoneField(blank=True, help_text='Contact phone number')
+    my_location  = models.CharField(max_length=128)
     profile_pic = models.ImageField(upload_to='profile/', default='a.png')
+
+
 
     def __str__(self):
         return self.user.username
 
+
     @classmethod
-    def search_by_profile(cls,username):
-        certain_user = cls.objects.filter(user__name__icontains = username)
+    def search_by_profile(cls, username):
+        certain_user = cls.objects.filter(user__username__icontains = username)
         return certain_user
 
-    @receiver(post_save,sender=User)
-    def update_user_profile(sender,instance,created, **kwargs):
-        if created:
+
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+         if created:
             Profile.objects.create(user=instance)
-            instance.profile.save()
+            instance.profile.save() 
+
+
 
     @classmethod
-    def get_by_id(cls,id):
-        profile = Profile.objects.filter(user = id).first()
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
         return profile
+
+
 
     @classmethod
     def filter_by_id(cls, id):
         profile = Profile.objects.filter(user = id).first()
         return profile
 
+
+
 class Category(models.Model):
-    name = models.CharField(max_length = 30)
+    name = models.CharField(max_length =30)
     def __str__(self):
-        return self.name
+        return self.name 
+
 
     @classmethod
     def get_category(cls):
         categories = Category.objects.all()
-        return categories
+        return categories   
+
+
 
     def save_category(self):
         self.save()
 
     def delete_category(self):
-        self.delete()
+        self.delete() 
 
 class Grocery(models.Model):
     name = models.CharField(max_length=250, blank=True)
-    grocery_pic = models.ImageField(upload_to='groceries/', default='')
-    description = models.TextField(max_length=255,default='')
-    price = models.FloatField()
-    discount_price = models.FloatField(blank=True, null=True)
+    grocery_pic = models.ImageField(upload_to='groceries/')
+    description = models.TextField(max_length=255)
+    price = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    quantity = models.FloatField(blank=True, null=True)
-    # user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='groceryy')
 
     class Meta:
         ordering = ["-pk"]
 
+
     def avg_price(self):
         price_rates = list(map(lambda x: x.prices, self.project.all()))
         return np.mean(price_rates)
-    def avg_fresh(self):
-        freshness_rates = list(map(lambda x: x.freshness, self.project.all()))
-        return np.mean(freshness_rates)
-    def avg_deliveryy(self):
-        deliveryy_rates = list(map(lambda x: x.deliveries, self.project.all()))
-        return np.mean(deliveryy_rates)
-        
+
+
+    def avg_freshness(self):
+        fresheness_rates = list(map(lambda x: x.fresh, self.project.all()))
+        return np.mean(fresheness_rates)
+
+
+    def avg_delivery(self):
+        delivery_rates = list(map(lambda x: x.deliveries, self.project.all()))
+        return np.mean(delivery_rates)   
+
+
     def save_grocery(self):
         self.save()
+
 
     def get_absolute_url(self):
         return f"/grocery/{self.id}"
 
+
     def delete_grocery(self):
         self.delete()
+
 
     @classmethod
     def search_by_name(cls,search_term):
@@ -102,24 +120,27 @@ class Grocery(models.Model):
     def __str__(self):
         return self.name
 
+
     @classmethod
-    def filter_by_category(cls,category):
+    def filter_by_category(cls, category):
         grocery = Grocery.objects.filter(category__name=category).all()
-        return grocery
+        return grocery 
+
 
 class OrderItem(models.Model):
     grocery = models.OneToOneField(Grocery, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
-    date_odered = models.DateTimeField(null=True)
+    date_ordered = models.DateTimeField(null=True)
+
 
     def __str__(self):
         return self.grocery.name
 
 
 class Order(models.Model):
-    ref_code = models.CharField(max_length=15,default='')
-    owner = models.ForeignKey(Profile,on_delete=models.SET_NULL, null=True)
+    ref_code = models.CharField(max_length=15)
+    owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     items = models.ManyToManyField(OrderItem)
     date_ordered = models.DateTimeField(auto_now=True)
@@ -128,80 +149,92 @@ class Order(models.Model):
     def get_cart_items(self):
         return self.items.all()
 
-    def delete_cart(self):
-        self.delete()
+
+    def delete_cat(self):
+        self.delete()    
+
 
     def get_cart_total(self):
         return sum([item.grocery.price for item in self.items.all()])
 
+
     def __str__(self):
-        return '{0} - {1}'.format(self.owner, self.ref_code)  
+        return '{0} - {1}'.format(self.owner, self.ref_code)
+
 
 class Transaction(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    token = models.CharField(max_length=130)
-    order_id = models.CharField(max_length=130)
-    amount = models.DecimalField(max_digits=100,decimal_places=2)
+    token = models.CharField(max_length=120)
+    order_id = models.CharField(max_length=120)
+    amount = models.DecimalField(max_digits=100, decimal_places=2)
     success = models.BooleanField(default=True)
-    timestamp = models.DateTimeField(auto_now_add=True,auto_now=False)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
 
     def __str__(self):
         return self.order_id
 
+
     class Meta:
         ordering = ['-timestamp']
 
+
 class Comment(models.Model):
     comment = models.TextField()
-    grocery = models.ForeignKey(Grocery,on_delete=models.CASCADE,related_name='comments')
-    user = models.ForeignKey(Profile,on_delete=models.CASCADE, related_name='comments')
+    grocery = models.ForeignKey(Grocery, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
     created = models.DateTimeField(auto_now_add=True, null=True)
+
 
     def __str__(self):
         return self.comment
 
+
     class Meta:
-        ordering = ["-pk"]
+        ordering = ["-pk"]    
 
 
 class Rate(models.Model):
     rating = (
-        (1,'1'),
-        (2,'2'),
-        (3,'3'),
-        (4,'4'),
-        (5,'5'),
-        (6,'6'),
-        (7,'7'),
-        (8,'8'),
-        (9,'9'),
-        (10,'10'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
     )
-    grocery = models.ForeignKey(Grocery, on_delete=models.CASCADE,related_name='project', null=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='rate')
-    prices =models.IntegerField(choices=rating, default=0, blank=True)
-    freshness =models.IntegerField(choices=rating, default=0, blank=True)
-    deliveries =models.IntegerField(choices=rating, default=0, blank=True)
-    date = models.DateTimeField(auto_now_add=True, blank=True,)
+    grocery = models.ForeignKey(Grocery, on_delete=models.CASCADE, related_name='project', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='rate')
+    prices = models.IntegerField(choices=rating, default=0, blank=True)
+    fresh = models.IntegerField(choices=rating,default=0, blank=True)
+    deliveries = models.IntegerField(choices=rating,default=0, blank=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
 
 
     def save_rate(self):
         self.save()
 
+
     class Meta:
-        ordering = ["-pk"]
+        ordering = ["-pk"]            
+
 
 class Delivery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='deliver')
-    location = models.CharField(max_length=125)
+    location  = models.CharField(max_length=128)
     phone = PhoneField(blank=True, help_text='Contact phone number')
     cc_number = CardNumberField('card number')
     cc_expiry = CardExpiryField('expiration date')
     cc_code = SecurityCodeField('security code')
 
+
     def save_deliver(self):
         self.save()
-        
-    class Meta:
-        ordering = ["-pk"]
 
+
+    class Meta:
+        ordering = ["-pk"] 

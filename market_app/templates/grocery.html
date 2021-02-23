@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="p-3 mb-2 bg-light text-dark" style="margin-top: 80px;">
+<div class="p-3 mb-2 bg-light text-dark" style="margin-top: 70px;">
     <div class="container">
         <div class="card">
             <div class="row">
@@ -11,7 +11,6 @@
                 </div>
                 <div class="col-md-3 mt-2">
                     <h4>Comments</h4>
-
                     <hr style="width:96%">
                     {% for comment in image.comments.all %}
                     <div class="comment">
@@ -40,32 +39,28 @@
                             <a class="btn btn-outline-primary" href="/login">Login to comment</a>
                             {% endif %}
                         </div>
-
-
                     </form>
-                    <p class="card-text"><small class="text-muted">{{product.description}}</small></p>
+                    <p class="card-text"><small class="text-muted">{{grocery.description}}</small></p>
                     {% if rates %}
                     <p class="text-center">Average ratings</p>
-
                     <table class="table table-hover">
                         <thead>
                             <tr>
-
-                                <th scope="col">Test</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Durability</th>
+                                <th scope="col">Prices</th>
+                                <th scope="col">Fresh</th>
+                                <th scope="col">Delivaries</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><button class="btn p-3"
-                                        style="border-radius: 50%;  background-color:#FF5400 ;">{{product.avg_design |floatformat}}</button>
+                                        style="border-radius: 50%;">{{grocery.avg_price |floatformat}}</button>
                                 </td>
                                 <td><button class="btn p-3"
-                                        style="border-radius: 50%; background-color:#8AC926 ;">{{product.avg_usability |floatformat}}</button>
+                                        style="border-radius: 50%;">{{grocery.avg_freshness |floatformat}}</button>
                                 </td>
                                 <td><button class="btn p-3"
-                                        style="border-radius: 50%;  background-color:#390099 ;">{{product.avg_content |floatformat}}</button>
+                                        style="border-radius: 50%;">{{grocery.avg_delivery |floatformat}}</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -78,33 +73,28 @@
                         <thead>
                             <tr>
                                 <th scope="col">Username</th>
-                                <th scope="col">Test</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Durability</th>
+                                <th scope="col">Fresh</th>
+                                <th scope="col">Delivery</th>
                             </tr>
                         </thead>
-
                         {% for rate in rates %}
-
-                        {% if product.id == rate.product.id %}
-
+                        {% if grocery.id == rate.grocery.id %}
                         <tbody>
                             <tr>
                                 <th scope="row">{{rate.user.username}}</th>
-                                <td>{{rate.test}}</td>
-                                <td>{{rate.price}}</td>
-                                <td>{{rate.durability}}</td>
+                                <td>{{rate.prices}}</td>
+                                <td>{{rate.fresh}}</td>
+                                <td>{{rate.delivaries}}</td>
                             </tr>
                         </tbody>
                         {%endif%}
-
                         {% endfor  %}
                     </table>
                     <div class="row justify-content-center">
                         <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-dark btn-sm col-md-4 p-2"
-                            style="color: white;">Rate Project</a>
+                            style="color: white;">Rate Service</a>
                     </div><br>
-
                     <div class="col-md-1"></div>
                 </div>
             </div>
@@ -115,7 +105,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Rate Project</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Rate Service</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -136,14 +126,11 @@
                                 </div>
                             </div>
                             </div>
-
-
                         </form>
                         {% else %}
-                        <p>Login first to rate this project</p>
+                        <p>Login first to rate this service</p>
                         {% endif %}
                     </div>
-
                 </div>
                 <div class="modal-footer"></div>
             </div>
