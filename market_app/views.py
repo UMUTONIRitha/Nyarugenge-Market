@@ -11,7 +11,7 @@ from rest_framework.response import Response
 # from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .forms import SignUpForm,UpdateUserProfileForm,CommentForm,RateForm,DeliveryForm
+from .forms import SignUpForm,UpdateUserProfileForm,CommentForm,RateForm,DeliveryForm, GroceryForm, UpdateGroceryForm
 from .decorators import admin_only,allowed_users
 from django.contrib import messages
 import datetime
@@ -111,8 +111,9 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            group = Group.objects.get(name = 'customer')
-            user.groups.add(group)
+            # group = Group.objects.get(name = 'customer')
+            # user.groups.add(group)
+            user.save()
             messages.info(request, "Your account has been Created successfully.")
             return redirect("/login")
     else:
@@ -243,7 +244,73 @@ def clear_from_cart(request):
     return redirect('grocery_list')
         
 def admin_page(request):
-    return render(request,'admin_page.html')
+    if request.method == "POST":
+        form = GroceryForm(request.POST,request.FILES)
+        if form.is_valid():
+            groceries = form.save(commit=False)
+            # project.user = current_user
+            groceries.save()
+            return redirect('index')
+    else:
+        form = GroceryForm()
+        context = {
+            "form":form
+        }
+        return render(request, 'add_groceries.html', context)
+
+def groceries(request):
+    groc = Grocery.objects.all()
+    context = {
+        "groceries":groc
+    }
+    print(groc)
+    return render(request, 'groceries.html', context)
+
+def del_groceries(request, groc_id):
+    groc = Grocery.objects.filter(id=groc_id).delete()
+    context = {
+        "grocery":groc
+    }
+    print(groc)
+    return redirect('groceries')
+
 
 def about (request):
     return render(request, 'about.html')
+
+def update_groceries(request, groc_id):
+    groc = Grocery.objects.get(id=groc_id)
+    if request.method == "POST":
+        
+        form = UpdateGroceryForm(request.POST,request.FILES)
+        print(form.data['name'])
+        if form.is_valid():
+            groceries = form.save(commit=False)
+            # project.user = current_user
+            Grocery.objects.filter(id=groc_id).update(name=form.data['name'], description=form.data['description'], price=form.data['price'], category=form.data['category'], quantity=form.data['quantity'])
+            
+            return redirect('index')
+    else:
+        form = GroceryForm()
+        context = {
+            "form":form,
+            "grocery": groc
+        }
+        return render(request, 'edit_groceries.html', context)
+
+def orders(request):
+    return render(request, 'orders.html')
+
+
+def comment(request):
+    return render(request, 'comment.html')
+
+def delivery(request):
+    return render(request, 'delivery.html')
+
+def order_item(request):
+    return render(request, 'order_item.html')
+
+def transaction(request):
+    return render(request, 'transaction.html')
+

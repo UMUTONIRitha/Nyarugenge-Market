@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Comment,Rate,Delivery
+from .models import Profile, Comment,Rate,Delivery, Grocery
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField()
@@ -43,3 +43,13 @@ class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
         exclude = ['user', 'product']
+
+class GroceryForm(forms.ModelForm):
+    class Meta:
+        model = Grocery
+        exclude = ['date', 'discount_price']
+
+class UpdateGroceryForm(forms.ModelForm):
+    class Meta:
+        model = Grocery
+        exclude = ['date', 'discount_price', 'grocery_pic']

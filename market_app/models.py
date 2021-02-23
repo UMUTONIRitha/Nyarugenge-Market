@@ -69,6 +69,7 @@ class Grocery(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    quantity = models.FloatField(blank=True, null=True)
     # user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='groceryy')
 
     class Meta:

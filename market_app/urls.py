@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import index,search_groceries,search_grocery, grocery_category, comment, signup, profile, grocery_list, groceries_category, get_user_pending_order,add_to_cart, delete_from_cart, order_details, checkout, clear_from_cart, admin_page, about
+from .views import index,search_groceries,search_grocery, grocery_category, comment, signup, profile, grocery_list, groceries_category, get_user_pending_order,add_to_cart, delete_from_cart, order_details, checkout, clear_from_cart, admin_page, about, groceries, del_groceries, update_groceries,orders,order_item,comment,delivery,transaction
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -22,6 +22,17 @@ urlpatterns=[
     path('order-summary/', order_details, name="order_summary"),
     path('item/delete/<item_id>', delete_from_cart, name='delete_item'),
     path('checkout/', checkout, name='checkout'),
+    path('add/groceries', admin_page, name='add_groceries'),
+    path('groceries', groceries, name='groceries'),
+    path('delete/groceries/<groc_id>', del_groceries, name='del_groceries'),
+    path('update/groceries/<groc_id>', update_groceries, name='update_groceries'),
+    path('orders/',orders,name = 'orders'),
+    path('comment/',comment,name = 'comment'),
+    path('delivery/',delivery,name = 'delivery'),
+    path('transaction/',transaction,name = 'transaction'),
+    path('order_item/',order_item,name = 'order_item'),
+
+
 
 
 ] 
