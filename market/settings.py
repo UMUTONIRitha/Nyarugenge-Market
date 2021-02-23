@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'widget_tweaks',
-    # 'tinymce',
+    'tinymce',
    
 ]
 
@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'market.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'market_app',
+        'NAME': 'markets',
         'USER': 'uwase',
     'PASSWORD':'root',
     }
