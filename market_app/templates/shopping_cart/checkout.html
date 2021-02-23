@@ -12,24 +12,19 @@
         position: relative;
         width: 700px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-
     }
-
     body {
         padding-top: 70px;
     }
 </style>
-
 <body>
     <div class="container">
         <section>
             <div class="row" id="tablerow">
                 <div class="col-md-4 col-xs-12">
                     <div class="panel panel-primary">
-
                         <div class="panel-body">
                             <h5 style="font-weight: bold;">Deliver Address<br><small></small></h5>
-
                             <div>
                                 <form action="" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
@@ -65,5 +60,4 @@
                 </div>
             </div>
         </section>
-
         {% endblock %}

@@ -1,27 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<style>
-    .card-img {
-        width: 100%;
-        height: 38vw;
-        object-fit: cover;
-    }
-
-    .card-img-top {
-        width: 100%;
-        /* height: 15vw; */
-        object-fit: cover;
-    }
-
-    body {
-        padding-top: 60px;
-    }
-
-    .hy {
-        color: red;
-    }
-</style>
 
 <body>
     {% if messages %}
@@ -31,79 +10,55 @@
             {% endfor %}
     </ul>
     {% endif %}
-
-    
-
     <div class="container">
-
         <h3 class="text-center m-4">All Groceries</h3>
         <div class="text-center">
             {% for category in categories %}
-
             <a class="mr-1 badge badge-info" href="/categories/{{category.name}}"
                 style="margin:8px">{{category.name}}</a>
             {% endfor %}
         </div>
         <hr>
-
         <div class="row justify-content-center">
             {% for object in object_list %}
-
             <div class="card col-md-3 m-3">
                 <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%"
                         src="{{object.grocery_pic.url}}" alt="-------"></a>
-
                 <div class="card-body">
                     <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
                     <p>Price: ${{ object.price }}</p>
                     {% if object in current_order_groceries %}
                     <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to Cart</a>
                     <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">View item</a>
-
                     {% else %}
                     <a href="{% url 'add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
                     <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">View item</a>
                     {% endif %}
-
                     <div class="modal fade " id="{{object.id}}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
                         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-
                             <div class="modal-content modalcard">
-
                                 <div class="modal-header">
-
                                     <h5 class="modal-title" id="imageheader">{{object.name|title}}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-
                                 <div class="modal-body">
                                     <img src="{{object.grocery_pic.url}}" alt="{{object.name}}" class="img-fluid">
-
                                     <p class="imgdesc" style="padding-top: 10px;">Description:<span
                                             style="font-weight: bold;">{{object.description}}</span></p>
                                     <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p>
                                     <button class="mr-1 badge badge-info"><i
                                             class="fas fa-location-arrow"></i>{{object.category}}</button>
-
                                 </div>
-
                                 <div class="modal-footer ">
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
-        
-
-
-
             {% endfor %}
         </div>
     </div>
