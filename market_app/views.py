@@ -49,7 +49,7 @@ def search_groceries(request):
         search_term = request.GET.get("searchgrocery")
         searched_project = Grocery.search_by_name(search_term)
         message = f"{search_term}"
-        context = {'object_list':searched, 'message':message, 'categories':categories,'current_order_groceries':current_order_groceries,}
+        context = {'object_list':searched_project, 'message':message, 'categories':categories,'current_order_groceries':current_order_groceries,}
         return render(request,"searching.html", context)
     else:
         message = "You haven't searched for any term"
@@ -137,7 +137,7 @@ def profile(request, username):
     }
     return render(request, 'profile.html', context)
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def grocery_list(request):
     object_list = Grocery.objects.all()
     categories = Category.get_category()

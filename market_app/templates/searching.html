@@ -1,27 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<style>
-    .card-img {
-        width: 100%;
-        height: 38vw;
-        object-fit: cover;
-    }
 
-    .card-img-top {
-        width: 100%;
-        /* height: 15vw; */
-        object-fit: cover;
-    }
-
-    body {
-        padding-top: 60px;
-    }
-
-    .hy {
-        color: red;
-    }
-</style>
 
 <body>
     {% if messages %}
@@ -56,38 +36,7 @@
                     <!-- <h2 class="text-dark m-5" style="margin-top: 50px;">one</h2> -->
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="card-img">
-                    <img class="d-block w-100"
-                        src="https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1598380484000/photosp/e0306d72-cb00-4573-b590-ef90db6363f2/stock-photo-still-life-many-wine-alcoholic-beverage-wineglass-objects-patterns-patterned-food-and-drink-e0306d72-cb00-4573-b590-ef90db6363f2.jpg"
-                        alt="................."></div>
-                <div class="carousel-caption p-5 d-none d-md-block text-light" style="position: fixed; /* Sit on top of the page content */
-        display: none; /* Hidden by default */
-        width: 100%; /* Full width (cover the whole page) */
-        height: 100%; /* Full height (cover the whole page) */
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        ">
-                    <!-- <h2 class="text-light m-5" style="margin-top: 50px;">two</h2> -->
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="card-img">
-                    <img class="d-block w-100" src="/media/images/soda.jpg" alt="................."></div>
-                <div class="carousel-caption p-5 d-none d-md-block text-light" style="position: fixed; /* Sit on top of the page content */
-        display: none; /* Hidden by default */
-        width: 100%; /* Full width (cover the whole page) */
-        height: 100%; /* Full height (cover the whole page) */
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        ">
-                    <!-- <h2 class="text-light m-5" style="margin-top: 50px;">three</h2> -->
-                </div>
-            </div>
+            
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

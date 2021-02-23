@@ -123,12 +123,12 @@ h1{
 
     
             <div class="card col-md-3 m-3">
-                <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.groecry_pic.url}}" alt="-------"></a>
+                <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.grocery_pic.url}}" alt="-------"></a>
     
                 <div class="card-body">
                     <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
                     <p>Price: ${{ object.price }}</p>
-                    <a href="/grocery_list" class="btn btn-warning">Add to Cart</a>
+                    <a href="/grocery_list" class="btn btn-success">Add to Cart</a>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">
                         View item
                     </button>
