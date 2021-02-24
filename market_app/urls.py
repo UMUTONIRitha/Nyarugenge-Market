@@ -33,14 +33,6 @@ urlpatterns=[
     path('delivery/',delivery,name = 'delivery'),
     path('transaction/',transaction,name = 'transaction'),
     path('order_item/',order_item,name = 'order_item'),
-
-
-
-
-] 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     path('',views.index,name = 'index'),
     path('category/<category>',views.grocery_category,name = 'category'),
     path('categories/<category>',views.groceries_category,name = 'categories'),
@@ -58,3 +50,7 @@ if settings.DEBUG:
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),
     url(r'^checkout/$', views.checkout, name='checkout'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
