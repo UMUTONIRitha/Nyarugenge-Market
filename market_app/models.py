@@ -80,7 +80,7 @@ class Grocery(models.Model):
     price = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-
+    quantity = models.IntegerField(blank=True, null=True)
     class Meta:
         ordering = ["-pk"]
 
