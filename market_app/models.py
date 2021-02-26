@@ -78,6 +78,7 @@ class Grocery(models.Model):
     grocery_pic = models.ImageField(upload_to='groceries/')
     description = models.TextField(max_length=255)
     price = models.IntegerField()
+    discount_price = models.IntegerField(blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
@@ -132,11 +133,17 @@ class OrderItem(models.Model):
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
-
+    quantity = models.IntegerField(default=1)       
 
     def __str__(self):
         return self.grocery.name
 
+
+    def get_total_grocery_price(self):         
+        return self.quantity * self.grocery.price           
+
+    def get_final_price(self):
+        return self.get_total_grocery_price
 
 class Order(models.Model):
     ref_code = models.CharField(max_length=15)
@@ -144,7 +151,7 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
     items = models.ManyToManyField(OrderItem)
     date_ordered = models.DateTimeField(auto_now=True)
-
+    
 
     def get_cart_items(self):
         return self.items.all()
@@ -155,8 +162,12 @@ class Order(models.Model):
 
 
     def get_cart_total(self):
+        # total = 0
+        # for OrderItem in self.items.all():
+        #     total += OrderItem.get_final_price()
+        # return total       
+    
         return sum([item.grocery.price for item in self.items.all()])
-
 
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)

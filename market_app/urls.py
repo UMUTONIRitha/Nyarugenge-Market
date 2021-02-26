@@ -18,8 +18,12 @@ urlpatterns=[
     path('search',views.search_grocery,name = 'search_grocery'),
     path('searching',views.search_groceries,name = 'search_groceries'),
     path('about/',views.about,name = 'about'),
+    path('contact/',views.contact,name = 'contact'),
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),
     url(r'^checkout/$', views.checkout, name='checkout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
