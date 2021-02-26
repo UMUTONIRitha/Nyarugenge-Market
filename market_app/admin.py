@@ -9,6 +9,7 @@ admin.site.register(Delivery)
 admin.site.register(Category)
 admin.site.register(Rate)
 admin.site.register(Comment)
+admin.site.register(Profile)
 admin.site.register(Transaction)
 
 
