@@ -309,8 +309,8 @@ def orders(request):
     return render(request, 'orders.html')
 
 
-def comment(request):
-    return render(request, 'comment.html')
+# def comment(request):
+#     return render(request, 'comment.html')
 
 def delivery(request):
     return render(request, 'delivery.html')
