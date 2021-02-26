@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
     {% if user.is_authenticated %}
-    <a class="navbar-brand" href="{% url 'grocery_list' %}">
-    <img src="https://res.cloudinary.com/auca/image/upload/v1613924970/VE_axrvkh.png" href="{% url 'grocery_list' %}"  >
+    <a class="navbar-brand" href="{% url 'index' %}">
+    <img src="https://res.cloudinary.com/auca/image/upload/v1613924970/VE_axrvkh.png" href="{% url 'grocery_list' %}">
     <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -25,11 +25,11 @@
                 <a class="nav-link " href="/logout" style="color: black; font-weight: bold;">Logout&nbsp;<i class="fas fa-sign-in-alt"></i> <span
                         class="sr-only">(current)</span></a>
             </li>
-            <!-- <li class="nav-item active">
+            <li class="nav-item active">
                 <a class="nav-link " href="/about" style="color: black; font-weight: bold;">About Us<span
                         class="sr-only">(current)</span></a>
             </li> -->
-            {% else %}
+<!-- {% else %}
             <li class="nav-item active">
                 <a class="nav-link " href="/login" style="color: black; font-weight: bold;">Login&nbsp;<i class="fas fa-sign-in-alt"></i> <span
                         class="sr-only">(current)</span></a>
@@ -37,12 +37,12 @@
             <li class="nav-item active">
                 <a class="nav-link " href="/signup" style="color: black; font-weight: bold;">SignUp&nbsp;<i class="fas fa-user-plus"></i> <span
                         class="sr-only">(current)</span></a>
-            </li>
-            <!-- <li class="nav-item active">
+            </li> -->
+<!-- <li class="nav-item active">
                 <a class="nav-link " href="/about" style="color: black; font-weight: bold;">About Us<span
                         class="sr-only">(current)</span></a>
             </li> -->
-            {% endif %}
+<!-- {% endif %}
         </ul>
         {% if user.is_authenticated %}
         <a href="{% url 'profile' user.username  %}" ><img class="rounded-circle border mx-auto" src="{{user.profile.profile_pic.url}}" width="30" height="30" alt=""></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,7 +55,7 @@
         {% else %}
         <form class="form-inline my-2 my-lg-0" action="/search" role="search"">
           <input class=" form-control mr-sm-2 bg-light" type="search" name="searchproject" placeholder="Search for grocery"
-            aria-label="Search" style="border: 0px; border-bottom: 2px solid black; outline: none;">
+            aria-label="Search" style="border: 0px; border-bottom: 2px solid black; outline: none; ">
             <button class="btn my-2 my-sm-0 btn-outline-dark" type="submit" style="border-radius: 20px"><i
                     class="fas fa-search"></i></button> &nbsp;
         </form>
@@ -63,4 +63,121 @@
         <a class="navbar-brand" href="{% url 'order_summary' %}"> <i class="fas fa-shopping-cart" style="color:black;"> </i>
             </a>
     </div>
-</nav>
+</nav> -->
+
+<div class="main-top">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                {% if user.is_authenticated %}
+                <div class="our-link">
+                    <ul class="login-box">
+                        
+                        <li><a href="/logout"  style="margin-top: 30px;">Logout<span
+                            class="sr-only">(current)</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 our-link">
+                <ul class="login-box">
+                        <a href="/signup" style="color: white;">Sign up /<span
+                            class="sr-only">(current)</span></a>
+                        <a href="/login" style="color: white;">Login<span
+                            class="sr-only">(current)</span></a>
+                </div>
+                {% endif %}
+
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+          
+              
+                    <span><a href="{% url 'profile' user.username  %}" style="color: white;float: right;"><i class="fa fa-user s_color" style="color: white; float:left; width: 10px;"></i> &nbsp;My
+                        Account</a> </span>
+                
+              
+        <div style="margin-left: 73%;">
+            <form class="form-inline my-2 my-lg-0" action="/searching" role="search">
+                <input class=" form-control mr-sm-2 bg-light" type="search" style="border-radius: 20px;  outline: none;" name="searchgrocery" placeholder="Search for grocery"
+                  aria-label="Search">
+                  
+              </form>
+        </div>
+        {% else %}
+        <div style="margin-left: 200%;">
+            <form class="form-inline my-2 my-lg-0" action="/search" role="search">
+                <input class=" form-control mr-sm-2 bg-light" style=" border-radius: 20px; outline: none;" type="search" name="searchproject" placeholder="Search for grocery"
+                  aria-label="Search">
+                 
+              </form>
+        </div>
+        {% endif %}
+            </div>
+    
+    </div>
+</div>
+
+<header class="main-header">
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+
+        <div class="container">
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                    aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="{% url 'index' %}"></a>
+            </div>
+            <!-- End Header Navigation -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                {% if user.is_authenticated %}
+                <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                    <li class="dropdown">
+                        <a href="{% url 'grocery_list' %}" class="nav-link dropdown-toggle arrow"
+                            data-toggle="dropdown">SHOP</a>
+                        <!-- <ul class="dropdown-menu">
+                            <li><a href="shop.html">Sidebar Shop</a></li>
+                            <li><a href="shop-detail.html">Shop Detail</a></li>
+                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="my-account.html">My Account</a></li>
+                            <li><a href="wishlist.html">Wishlist</a></li>
+                        </ul> -->
+                    </li>
+                    {% else %}
+                    <a class="navbar-brand" href="/"></a>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
+                   
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav">
+                <ul>
+
+                    <li class="side-menu">
+                        <a href="{% url 'order_summary' %}">
+                            <i class="fa fa-shopping-bag"></i>
+
+                            <p>My Cart</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+         
+        </div>
+       
+    </nav>
+
+</header>

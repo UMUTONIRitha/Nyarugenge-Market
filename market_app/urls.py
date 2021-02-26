@@ -38,19 +38,19 @@ urlpatterns=[
     path('categories/<category>',views.groceries_category,name = 'categories'),
     path('grocery_list/',views.grocery_list,name = 'grocery_list'),
     path('signup/',views.signup , name='signup'),
-    path('grocery/<pk>', views.comment, name='comment'),
+    # path('grocery/<pk>', views.comment, name='comment'),
     path('profile/<username>/', views.profile, name='profile'),
     path('clear_from_cart/',views.clear_from_cart,name='clear_from_cart'),
     path('admin_page',views.admin_page,name='admin_page'),
     path('search',views.search_grocery,name = 'search_grocery'),
     path('searching',views.search_groceries,name = 'search_groceries'),
     path('about/',views.about,name = 'about'),
+    path('contact/',views.contact,name = 'contact'),
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),
     url(r'^checkout/$', views.checkout, name='checkout'),
 ]
-
 
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

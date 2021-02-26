@@ -6,7 +6,8 @@
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}</li>
+        <li{% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}
+            </li>
             {% endfor %}
     </ul>
     {% endif %}
@@ -36,7 +37,7 @@
                     {% endif %}
                     <div class="modal fade " id="{{object.id}}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                        <!-- <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                             <div class="modal-content modalcard">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="imageheader">{{object.name|title}}</h5>
@@ -55,12 +56,67 @@
                                 <div class="modal-footer ">
                                 </div>
                             </div>
+                        </div> -->
+                        <div class="top-search">
+                            <div class="container">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search">
+                                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+                        <!-- End Top Search -->
+
+                        <!-- Start All Title Box -->
+                        <div class="all-title-box">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2>Shop Detail</h2>
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                            <li class="breadcrumb-item active">Shop Detail </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                            <div class="modal-content modalcard">
+                                <div class="shop-detail-box-main">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-xl-5 col-lg-5 col-md-6">
+                                                <img class="d-block w-100 img-fluid" src="{{object.grocery_pic.url}}" alt="{{object.name}}"
+                                                    />
+                                            </div>
+                                            <div class="col-xl-7 col-lg-7 col-md-6">
+                                                <div class="single-product-details">
+                                                    <h2>{{object.name|title}}</h2>
+                                        
+                                                        {% if object.discount_price %}
+                                                       <span><del> {{object.price}}rwf</del></span>
+                                                       <span>{{ object.discount_price }}</span>
+                                                        {% else %}
+
+                                                     <span>{{object.price}}rwf</span>
+                                                    {% endif %}
+                                                    <p>
+                                                    <h4>Short Description:</h4>
+                                                    <p>{{object.description}}</p>
+                                                    <h4>Category</h4>
+                                                    <p>{{object.category}}</p>
+                                                    <ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                {% endfor %}
+                          
 </body>
 {% endblock content %}

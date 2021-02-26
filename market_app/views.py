@@ -183,20 +183,14 @@ def get_user_pending_order(request):
 
 @login_required()
 def add_to_cart(request, **kwargs):
-    
     user_profile = get_object_or_404(Profile, user=request.user)
-
     grocery = Grocery.objects.filter(id=kwargs.get('item_id', "")).first()
-   
     order_item, status = OrderItem.objects.get_or_create(grocery=grocery)
-   
     user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
     user_order.items.add(order_item)
     if status:
-   
         user_order.ref_code = 221
         user_order.save()
-    
     messages.info(request, "item added to cart")
     return redirect(reverse('grocery_list'))
 
@@ -208,6 +202,7 @@ def delete_from_cart(request, item_id):
         item_to_delete[0].delete()
         messages.info(request, "Item has been deleted")
     return redirect(reverse('order_summary'))
+
 
 
 
@@ -313,8 +308,8 @@ def orders(request):
     return render(request, 'orders.html')
 
 
-def comment(request):
-    return render(request, 'comment.html')
+# def comment(request):
+#     return render(request, 'comment.html')
 
 def delivery(request):
     return render(request, 'delivery.html')
@@ -328,3 +323,7 @@ def transaction(request):
 
 def about(request):
     return render(request,'about.html')
+
+
+def contact(request):
+    return render(request,'contactus.html')
