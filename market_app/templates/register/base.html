@@ -1,3 +1,5 @@
+{% load static %}
+
 {% load bootstrap4 %}
 <!DOCTYPE html>
 <html>
@@ -5,7 +7,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Bootstrap CSS -->
+   
 
     {%if title%}
 
@@ -29,7 +32,8 @@
 
 
     {% block scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' %}"></script>
+    
     {% bootstrap_javascript %}
     {% endblock %}
 
