@@ -86,11 +86,13 @@ WSGI_APPLICATION = 'market.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'markets',
+        'NAME': 'market_app',
         'USER': 'uwase',
     'PASSWORD':'root',
     }
 }
+    
+
 
 
 
