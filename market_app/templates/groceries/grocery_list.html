@@ -2,6 +2,12 @@
 {% load static %}
 {% block content %}
 
+<style>
+    body{
+        font-family: Poppins;
+    }
+</style>
+
 <body>
     {% if messages %}
     <ul class="messages">
@@ -12,8 +18,107 @@
     </ul>
     {% endif %}
     <div class="container">
-        <h3 class="text-center m-4">All Groceries</h3>
+        <h3 class="text-center m-4"style="font-size: 24px;font-weight: 700;text-transform: uppercase;text-align: center;">All Groceries</h3>
         <div class="text-center">
+        <div class="row justify-content-center">
+            {% for object in object_list %}
+            <div class="card col-md-3 m-6">
+                <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.grocery_pic.url}}" alt="-------"></a>
+                <div class="card-body">
+                    <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
+                    <p>Price: ${{ object.price }}</p>
+                    <a href="{% url 'order_summary' %}" class="btn btn-warning">Add to Cart</a> <br>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">
+                        View item
+                    </button>
+                    <div class="modal fade" id="{{object.id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ object.name|title }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{object.grocery_pic.url}}" alt="{{object.name}}" class="img-fluid">
+                                    <p class="imgdesc" style="padding-top: 10px;">Description:<span
+                                            style="font-weight: bold;">{{object.description}}</span></p>
+                                    <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p>
+                                    <button class="mr-1 badge badge-info"><i
+                                        class="fas fa-location-arrow"></i>{{object.category}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+    </div>
+</div>
+    </div><br> 
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>Nyarugenge Market</h4>
+                            <p>The Nyarugenge Market, located at the heart of Kigali. 
+                                One Can Trust With Not Just Variety But Also Synonymous
+                                 With Quality Groceries. Shopping And Home Delivery Experience
+                                  Of Groceries Is Now Much Easier To Access Than Before.
+                                  Quality Groceries Wherever You May Be in Kigali.</p> 
+              <p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality, Affordable And Fresh Groceries To All Our Customers.
+                                We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully Selected Items To Your Doorstep.
+                                We Accept All Payments Models And Work 24/7. </p> 							
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link">
+                            <h4>Information</h4>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="#">Shop with us</a></li>
+                                <!-- <li><a href="#">Terms &amp; Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li> -->
+                                <li><a href="#">Delivery Information</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: KN 2 St <br>Kigali<br> </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="#">0788 525 816</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:nyarugenge@market.com">nyarugenge@market.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer  -->
+    
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
+    </div>
+    
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+    
+        <!-- <div class="text-center">
             {% for category in categories %}
             <a class="mr-1 badge badge-info" href="/categories/{{category.name}}"
                 style="margin:8px">{{category.name}}</a>
@@ -36,7 +141,7 @@
                     <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">View item</a>
                     {% endif %}
                     <div class="modal fade " id="{{object.id}}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
                         <!-- <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                             <div class="modal-content modalcard">
                                 <div class="modal-header">
@@ -57,7 +162,8 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="top-search">
+                        
+                        <!-- <div class="top-search">
                             <div class="container">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -65,11 +171,11 @@
                                     <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End Top Search -->
 
                         <!-- Start All Title Box -->
-                        <div class="all-title-box">
+                        <!-- <div class="all-title-box">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -117,6 +223,6 @@
                             </div>
                         </div>
                                 {% endfor %}
-                          
+                           -->
 </body>
 {% endblock content %}

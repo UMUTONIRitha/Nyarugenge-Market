@@ -32,6 +32,7 @@
     <hr>
 
     <div class="row justify-content-center">
+       
         {% for object in object_list %}
 
 
@@ -61,7 +62,7 @@
     
                                 <p class="imgdesc" style="padding-top: 10px;">Description:<span
                                         style="font-weight: bold;">{{object.description}}</span></p>
-                                <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p>
+                                <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p> <br>
                                 <button class="mr-1 badge badge-info"><i
                                     class="fas fa-location-arrow"></i>{{object.category}}</button>
                             </div>
