@@ -9,10 +9,10 @@
   
 </style>
 <body>
-  <div class="all-title-box" style="background-color:#b0b435">
+  <div class="all-title-box" style="background-color:#157e07">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-11">
                 <h2>Order Summary</h2>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     {{ item.grocery.name }}
                     <span class="pull-right">
                       <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
-                        class="text-danger" onclick="return confirm_delete();">
+                        class="text-warning" onclick="return confirm_delete();">
                         <i class="fas fa-trash"></i>
                       </a>
                     </span>
