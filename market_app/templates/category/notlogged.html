@@ -13,28 +13,57 @@
         /* height: 15vw; */
         object-fit: cover;
     }
+    .container{
+        font-family: Poppins;
+    }
+    footer{
+        font-family: Poppins;
+    }
+    .nav-link:hover{
+        color:#b0b435
+    }
 </style>
 
 <div class="container">
-    <hr>
+    <!-- <hr> -->
     {% if object_list %}
-    <h3 class="text-center m-4">Found {{ object_list|length }} groceries</h3>
+    <h3 class="text-center m-4" style="font-weight: bold;">Found {{ object_list|length }} groceries</h3>
     {% else %}
     <h3 class="text-center m-4">Found {{ object_list|length }} grocerie</h3>
     {% endif %}
-    <div class="text-center">
+    <hr>
+    <div class="row">
+        <div class="col-lg-2 sidebar">
+            <div class="sidebar-widget category">
+                <h2 class="title" style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Categories</h2>
+                <nav class="navbar bg-light">
+                    
+                    <ul class="navbar-nav">
+                        {% for category in categories %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/category/{{category.name}}">{{category.name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                </nav>
+            </div>
+            
+            </div> 
+    <!-- <div class="text-center">
+        <h1>Hahahahaaha</h1>
         {% for category in categories %}
         <a class="mr-1 badge badge-info" href="/category/{{category.name}}" style="margin:8px">#{{category.name}}</a>
         {% endfor %}
-    </div>
-    <div class="row justify-content-center">
+    </div> -->
+    <div class="row justify-content-center col-lg-10">
         {% for object in object_list %}
-      <div class="card col-md-3 m-3">
-        <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.product_pic.url}}" alt="-------"></a>
+      <div class="card col-md-3 m-6">
+        <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.grocery_pic.url}}" alt="-------"></a>
         <div class="card-body">
           <h5 class="card-title"><span>{{ object.name }}</span></h5>
           <p>Price: ${{ object.price }}</p>
-          <a href="/grocery_list" class="btn btn-warning">Add to Cart</a>
+          <a href="{% url 'add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">
             View item
         </button>
@@ -63,5 +92,60 @@
       </div>
       {% endfor %}
     </div>
-  </div>
+    </div>
+  </div> <br><br>
+  <footer>
+    <div class="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-widget">
+                        <h4>Nyarugenge Market</h4>
+                        <p>The Nyarugenge Market, located at the heart of Kigali. 
+                            One Can Trust With Not Just Variety But Also Synonymous
+                             With Quality Groceries. Shopping And Home Delivery Experience
+                              Of Groceries Is Now Much Easier To Access Than Before.
+                              Quality Groceries Wherever You May Be in Kigali.</p> 
+          <p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality, Affordable And Fresh Groceries To All Our Customers.
+                            We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully Selected Items To Your Doorstep.
+                            We Accept All Payments Models And Work 24/7. </p> 							
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link">
+                        <h4>Information</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Customer Service</a></li>
+                            <li><a href="#">Shop with us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link-contact">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li>
+                                <p><i class="fas fa-map-marker-alt"></i>Address: KN 2 St <br>Kigali<br> </p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-phone-square"></i>Phone: <a href="#">0788 525 816</a></p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-envelope"></i>Email: <a href="mailto:nyarugenge@market.com">nyarugenge@market.com</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer-copyright">
+    <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
+</div>
+
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
 {% endblock %}

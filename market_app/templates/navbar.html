@@ -65,7 +65,7 @@
     </div>
 </nav> -->
 
-<div class="main-top">
+<div class="main-top" style="font-family: Poppins;">
     <div class="container-fluid">
 
         <div class="row">
@@ -73,9 +73,8 @@
                 {% if user.is_authenticated %}
                 <div class="our-link">
                     <ul class="login-box">
-                        
-                        <li><a href="/logout"  style="margin-top: 30px;">Logout<span
-                            class="sr-only">(current)</span></a></li>
+                        <li><a href="/logout" style="margin-top: 20px;">Logout
+                            <span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -86,29 +85,28 @@
                             class="sr-only">(current)</span></a>
                         <a href="/login" style="color: white;">Login<span
                             class="sr-only">(current)</span></a>
+                            </ul>
                 </div>
                 {% endif %}
 
             </div>
             <div>
                 {% if user.is_authenticated %}
-          
-              
-                    <span><a href="{% url 'profile' user.username  %}" style="color: white;float: right;"><i class="fa fa-user s_color" style="color: white; float:left; width: 10px;"></i> &nbsp;My
+        
+                    <span><a href="{% url 'profile' user.username  %}" style="color: white;float: right;"><i class="fa fa-user s_color" style="color: white; float:left; width: 10px;margin-bottom:10px;"></i> &nbsp;My
                         Account</a> </span>
                 
-              
-        <div style="margin-left: 73%;">
+        <div style="margin-left: 40%; margin-bottom: 10px;">
             <form class="form-inline my-2 my-lg-0" action="/searching" role="search">
-                <input class=" form-control mr-sm-2 bg-light" type="search" style="border-radius: 20px;  outline: none;" name="searchgrocery" placeholder="Search for grocery"
+                <input class=" form-control mr-sm-2 bg-light" type="search" style="border-radius: 10px;  outline: none;" name="searchgrocery" placeholder="Search for grocery"
                   aria-label="Search">
                   
               </form>
         </div>
         {% else %}
-        <div style="margin-left: 200%;">
+        <div style="margin-left: 100%;">
             <form class="form-inline my-2 my-lg-0" action="/search" role="search">
-                <input class=" form-control mr-sm-2 bg-light" style=" border-radius: 20px; outline: none;" type="search" name="searchproject" placeholder="Search for grocery"
+                <input class=" form-control mr-sm-2 bg-light" style=" border-radius: 10px; outline: none;" type="search" name="searchproject" placeholder="Search for grocery"
                   aria-label="Search">
                  
               </form>
@@ -119,7 +117,7 @@
     </div>
 </div>
 
-<header class="main-header">
+<header class="main-header" style="font-family: Poppins;">
     <!-- Start Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
 
@@ -138,14 +136,12 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 {% if user.is_authenticated %}
                 <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item "><a class="nav-link" href="{% url 'index' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'grocery_list' %}">SHOP</a></li>
-                    <!-- <li class="dropdown">
-                        <a href="{% url 'grocery_list' %}" class="nav-link dropdown-toggle arrow"
-                            data-toggle="dropdown">SHOP</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="grocery_list.html">Grocery list</a></li>
+                    <li class="dropdown">
+                        <a href="{% url 'grocery_list' %}" class="nav-link">SHOP</a>
+                        <!-- <ul class="dropdown-menu">
+                            <li><a href="shop.html">Sidebar Shop</a></li>
                             <li><a href="shop-detail.html">Shop Detail</a></li>
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
@@ -156,7 +152,7 @@
                     {% else %}
                     <a class="navbar-brand" href="/"></a>
                     {% endif %}
-                    <li class="nav-item"><a class="nav-link" href="/gallery">Gallery</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li> -->
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
                    
                 </ul>
@@ -166,12 +162,9 @@
             <!-- Start Atribute Navigation -->
             <div class="attr-nav">
                 <ul>
-
                     <li class="side-menu">
                         <a href="{% url 'order_summary' %}">
-                            <i class="fa fa-shopping-bag"></i>
-
-                            <p>My Cart</p>
+                            <i class="fa fa-shopping-bag"></i> My Cart
                         </a>
                     </li>
                 </ul>
