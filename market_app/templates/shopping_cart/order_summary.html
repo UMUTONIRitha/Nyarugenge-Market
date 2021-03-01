@@ -87,7 +87,7 @@
                     </a>
                   </td>
                   <td colspan=5>
-                    {% if order.get_cart_items %}
+                    {% if order %}
                     <a href="{% url 'checkout' %}" class="pull-right btn btn-primary" style="background-color: #b0b435;border:none">Proceed To Checkout</a>
                     {% endif %}
                   </td>
