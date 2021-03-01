@@ -19,14 +19,14 @@
 <div class="container">
 
     {% if object_list %}
-    <h3 class="text-center m-4" style="color: red;">Found {{ object_list|length }} Products</h3>
+    <h3 class="text-center m-4" style="color: red;">Found {{ object_list|length }} groceries</h3>
     {% else %}
-    <h3 class="text-center m-4" style="color: red;">Found {{ object_list|length }} Products</h3>
+    <h3 class="text-center m-4" style="color: red;">Found {{ object_list|length }} groceries</h3>
     {% endif %}
     <div class="text-center">
         {% for category in categories %}
 
-        <a class="mr-1 badge badge-info" href="/category/{{category.name}}" style="margin:8px">#{{category.name}}</a>
+        <a class="mr-1 badge badge-info" href="/categories/{{category.name}}" style="margin:8px">#{{category.name}}</a>
         {% endfor %}
     </div>
     <hr>
@@ -37,7 +37,7 @@
 
 
         <div class="card col-md-3 m-3">
-            <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.product_pic.url}}" alt="-------"></a>
+            <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.grocery_pic.url}}" alt="-------"></a>
 
             <div class="card-body">
                 <h5 class="card-title"><span>{{ object.name|title }}</span></h5>

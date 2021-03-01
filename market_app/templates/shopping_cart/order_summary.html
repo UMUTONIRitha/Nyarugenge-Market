@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load mathfilters %}
 {% load crispy_forms_tags %}
 {% block content %}
 <style>
@@ -21,8 +22,8 @@
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}</li>
-      {% endfor %}
+    <li {% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}</li>
+    {% endfor %}
   </ul>
   {% endif %}
   <br>
@@ -44,30 +45,28 @@
                   <!-- <th>Delete item</th> -->
               </thead>
               <tbody>
-                {% for item in order.get_cart_items %}
+                {% for item in order %}
                 <tr>
                   <th scope="row">{{ forloop.counter }}</th>
                   <td>
-                    {{ item.grocery.name }}
+                    {{ item.items.grocery.name }}
                     <span class="pull-right">
                       <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
-                        class="text-warning" onclick="return confirm_delete();">
+                        class="text-danger">
                         <i class="fas fa-trash"></i>
                       </a>
                     </span>
                   </td>
-                  {% if item.grocery.discount_price %}
-                  <td> {{item.grocery.discount_price}}rwf</td>
-                            {% else %}
-                  <td> {{ item.grocery.price}} rwf </td>
-                           {% endif %}
+                  <td>{{ item.items.grocery.price }}</td>
 
-                  <td class="quantity-box"><input type="number" size="4" value="{{ item.quantity }}" min="0" step="1"
-                      class="c-input-text qty text">
-                    </td>
+                  <td class="quantity-box">{{ item.items.quantity }}</td>
 
-                  <td>{{ item.get_total_grocery_price }}</td>
-                  <!-- <td></td> -->
+                  <!-- <td>
+                    <p id="total"></p>
+                    </td> -->
+
+
+                  <td class="subtotal">{{item.items.grocery.price|mul:item.items.quantity}}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -76,7 +75,8 @@
                 {% endfor %}
                 <tr>
                   {% if order.get_cart_total != None %}
-                  <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td>
+                  <!-- <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td> -->
+                  <td colspan="5"><strong id="maintotal"></strong></td>
                 </tr>
                 {% endif %}
                 <tr>
@@ -86,7 +86,7 @@
                     </a>
                   </td>
                   <td colspan=5>
-                    {% if order.get_cart_items %}
+                    {% if order %}
                     <a href="{% url 'checkout' %}" class="pull-right btn btn-primary" style="background-color: #b0b435;border:none">Proceed To Checkout</a>
                     {% endif %}
                   </td>
@@ -275,9 +275,9 @@
               </tr>
             </table>
           </div>
+
         </section>
       </div>
-      <div class="col-md-1"></div>
     </div>
   </div> -->
   <!-- {% block scripts %}
