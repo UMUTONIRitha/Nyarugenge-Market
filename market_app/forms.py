@@ -24,6 +24,7 @@ class UpdateUserProfileForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        
         super().__init__(*args, **kwargs)
         self.fields['comment'].widget = forms.TextInput()
         self.fields['comment'].widget.attrs['placeholder'] = 'Add a comment...'
@@ -42,7 +43,7 @@ class DeliveryForm(forms.ModelForm):
 class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
-        exclude = ['user', 'product']
+        exclude = ['user', 'grocery']
 
 class GroceryForm(forms.ModelForm):
     class Meta:
@@ -53,4 +54,4 @@ class UpdateGroceryForm(forms.ModelForm):
     class Meta:
         model = Grocery
         exclude = ['date', 'discount_price', 'grocery_pic']
-        exclude = ['user', 'grocery']
+        exclude = ['user', 'grocerys']

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'widget_tweaks',
     'tinymce',
+    'mathfilters',
    
 ]
 
@@ -87,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'market_app',
-        'USER': 'hawk',
-    'PASSWORD':'password',
+        'USER': 'wecode',
+    'PASSWORD':'123',
     }
 }
     

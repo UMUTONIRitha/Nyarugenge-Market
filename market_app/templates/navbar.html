@@ -6,6 +6,8 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+
     {% else %}
     <a class="navbar-brand" href="/">
         <img src="https://res.cloudinary.com/auca/image/upload/v1613924970/VE_axrvkh.png" width="80"
@@ -15,6 +17,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     {% endif %}
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
@@ -144,8 +147,8 @@
                             <li><a href="checkout.html">Checkout</a></li>
                             <li><a href="my-account.html">My Account</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
-                        </ul> -->
-                    </li>
+                        </ul>
+                    </li> -->
                     {% else %}
                     <a class="navbar-brand" href="/"></a>
                     {% endif %}

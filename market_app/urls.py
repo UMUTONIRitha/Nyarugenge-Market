@@ -20,6 +20,7 @@ urlpatterns=[
     path('search',search_grocery,name = 'search_grocery'),
     path('searching',search_groceries,name = 'search_groceries'),
     path('about/',about,name = 'about'),
+   
     path('add-to-cart/<item_id>/', add_to_cart, name="add_to_cart"),
     path('order-summary/', order_details, name="order_summary"),
     path('item/delete/<item_id>', delete_from_cart, name='delete_item'),
@@ -46,6 +47,7 @@ urlpatterns=[
     path('searching',views.search_groceries,name = 'search_groceries'),
     path('about/',views.about,name = 'about'),
     path('contact/',views.contact,name = 'contact'),
+    path('gallery/',views.gallery,name = 'gallery'),
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),
