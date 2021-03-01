@@ -167,7 +167,7 @@ class Order(models.Model):
         #     total += OrderItem.get_final_price()
         # return total       
     
-        return sum([item.grocery.price for item in self.items.all()])
+        return sum([ item.grocery.price for item in self.items.all()])
 
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)

@@ -198,7 +198,7 @@ li.close-full-menu{
 /* Atribute Navigation
 =================================*/
 .attr-nav{
-    float: right;
+    /* float: right; */
     display: inline-block;
     margin-left: 13px;
     margin-right: -15px;
@@ -1272,9 +1272,9 @@ nav.navbar.bootsnav ul.dropdown-menu.megamenu-content .content ul.menu-col li a:
     
     /* Tabs
     =================================*/ 
-    /* nav.navbar.bootsnav .megamenu-content.tabbed{
-        padding-left: 0 !mportant;
-    } */
+    nav.navbar.bootsnav .megamenu-content.tabbed{
+        padding-left: 0 !important;
+    }
     
     nav.navbar.bootsnav .tabbed > li{
         padding: 25px 0;
