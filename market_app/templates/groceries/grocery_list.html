@@ -1,6 +1,137 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<header>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            $("input#qty").keypress(function() {
+                var quantity = $("input#qty").val()
+                var total= total*quantity
+                $("p#total").html(total)
+            });
+        });
+    </script>
+    </header>
+<!-- <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}
+            </li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="container">
+        <h3 class="text-center m-4">All Groceries</h3>
+        <div class="text-center">
+            {% for category in categories %}
+            <a class="mr-1 badge badge-info" href="/categories/{{category.name}}"
+                style="margin:8px">{{category.name}}</a>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+            {% for object in object_list %}
+            <div class="card col-md-3 m-3">
+                <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%"
+                        src="{{object.grocery_pic.url}}" alt="-------"></a>
+                <div class="card-body">
+                    <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
+                    <p>Price: ${{ object.price }}</p>
+                    {% if object in current_order_groceries %}
+                    <a href="{% url 'order_summary' %}" class="btn btn-warning">Go to Cart</a> -->
+                    <!-- <input type="number" id="quantity" class="form-control" min="1" required> -->
+                    <!-- <p id="total"></p> -->
+                    <!-- <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">View item</a>
+                    {% else %}
+                    <a href="{% url 'add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a>
+                    <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">View item</a>
+                    {% endif %}
+                    <div class="modal fade " id="{{object.id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
+                        <!-- <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                            <div class="modal-content modalcard">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="imageheader">{{object.name|title}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{object.grocery_pic.url}}" alt="{{object.name}}" class="img-fluid">
+                                    <p class="imgdesc" style="padding-top: 10px;">Description:<span
+                                            style="font-weight: bold;">{{object.description}}</span></p>
+                                    <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p>
+                                    <button class="mr-1 badge badge-info"><i
+                                            class="fas fa-location-arrow"></i>{{object.category}}</button>
+                                </div>
+                                <div class="modal-footer ">
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="top-search">
+                            <div class="container">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search">
+                                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- End Top Search -->
+                        <!-- Start All Title Box -->
+                        <!-- <div class="all-title-box">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2>Shop Detail</h2>
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                            <li class="breadcrumb-item active">Shop Detail </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                            <div class="modal-content modalcard">
+                                <div class="shop-detail-box-main">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-xl-5 col-lg-5 col-md-6">
+                                                <img class="d-block w-100 img-fluid" src="{{object.grocery_pic.url}}" alt="{{object.name}}"
+                                                    />
+                                            </div>
+                                            <div class="col-xl-7 col-lg-7 col-md-6">
+                                                <div class="single-grocery-details">
+                                                    <h2>{{object.name|title}}</h2>
+                                                        {% if object.discount_price %}
+                                                       <span><del> {{object.price}}rwf</del></span>
+                                                       <span>{{ object.discount_price }}</span>
+                                                        {% else %}
+                                                     <span>{{object.price}}rwf</span>
+                                                    {% endif %}
+                                                    <p>
+                                                    <h4>Short Description:</h4>
+                                                    <p>{{object.description}}</p>
+                                                    <h4>Category</h4>
+                                                    <p>{{object.category}}</p>
+                                                    <ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                {% endfor %}
+</body>
+ -->
+
+
+
+
 
 <style>
     body{
@@ -27,7 +158,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
                     <p>Price: ${{ object.price }}</p>
-                    <a href="{% url 'order_summary' %}" class="btn btn-warning">Add to Cart</a> <br>
+                    <a href="{% url 'add_to_cart' object.id %}" class="btn btn-warning">Add to Cart</a> <br>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">
                         View item
                     </button>
@@ -83,8 +214,7 @@
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Customer Service</a></li>
                                 <li><a href="#">Shop with us</a></li>
-                                <!-- <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li> -->
+                                
                                 <li><a href="#">Delivery Information</a></li>
                             </ul>
                         </div>
@@ -109,14 +239,13 @@
             </div>
         </div>
     </footer>
-    <!-- End Footer  -->
-    
-    <!-- Start copyright  -->
     <div class="footer-copyright">
         <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
     </div>
     
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+{% endblock content %} 
     
         <!-- <div class="text-center">
             {% for category in categories %}
@@ -224,5 +353,5 @@
                         </div>
                                 {% endfor %}
                            -->
-</body>
-{% endblock content %}
+<!-- </body>
+ -->
