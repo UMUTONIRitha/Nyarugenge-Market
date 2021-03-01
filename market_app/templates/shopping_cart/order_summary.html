@@ -8,8 +8,6 @@
   }
   
 </style>
-
-
 <body>
   <div class="all-title-box" style="background-color:#b0b435">
     <div class="container">
@@ -43,15 +41,21 @@
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Total price</th>
-                  <th>Delete item</th>
-                <!-- </tr> -->
+                  <!-- <th>Delete item</th> -->
               </thead>
               <tbody>
                 {% for item in order.get_cart_items %}
                 <tr>
                   <th scope="row">{{ forloop.counter }}</th>
-                  <td>{{ item.grocery.name }}</td>
-                  <!-- <td>{{ item.grocery.price }}</td> -->
+                  <td>
+                    {{ item.grocery.name }}
+                    <span class="pull-right">
+                      <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
+                        class="text-danger" onclick="return confirm_delete();">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </span>
+                  </td>
                   {% if item.grocery.discount_price %}
                   <td> {{item.grocery.discount_price}}rwf</td>
                             {% else %}
@@ -59,15 +63,11 @@
                            {% endif %}
 
                   <td class="quantity-box"><input type="number" size="4" value="{{ item.quantity }}" min="0" step="1"
-                      class="c-input-text qty text"></td>
+                      class="c-input-text qty text">
+                    </td>
 
                   <td>{{ item.get_total_grocery_price }}</td>
-                  <td><span >
-                    <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
-                      class="text-danger" onclick="return confirm_delete();">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </span></td>
+                  <!-- <td></td> -->
                 </tr>
                 {% empty %}
                 <tr>
@@ -125,8 +125,7 @@
                                       <li><a href="#">About Us</a></li>
                                       <li><a href="#">Customer Service</a></li>
                                       <li><a href="#">Shop with us</a></li>
-                                      <!-- <li><a href="#">Terms &amp; Conditions</a></li>
-                                      <li><a href="#">Privacy Policy</a></li> -->
+                                     
                                       <li><a href="#">Delivery Information</a></li>
                                   </ul>
                               </div>
@@ -151,9 +150,6 @@
                   </div>
               </div>
           </footer>
-          <!-- End Footer  -->
-          
-          <!-- Start copyright  -->
           <div class="footer-copyright">
               <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
           </div>
@@ -162,6 +158,145 @@
           
           
           </body>
+
+<!-- <body>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <section>
+          <div class="table-responsive text-nowrap">
+            <table class="table table-hover table-bordered text-center">
+              <thead>
+                <tr class="text-center">
+                  <th>no.</th>
+                  <th>Item title</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in order.get_cart_items %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ item.grocery.name }}</td>
+                  <td>{{ item.grocery.price }}</td>
+                  <td>
+                    {{ item.grocery.name }}
+                    <span class="pull-right">
+                      <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
+                        class="text-danger" onclick="return confirm_delete();">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </span>
+                  </td>
+                  <td class="quantity-box"><input type="number" size="4" value="{{ item.quantity }}" min="0" step="1"
+                      class="c-input-text qty text"></td>
+                  <td>
+                  <input type="number" id="quantity" class="form-control" min="1" required>
+                  </td> 
+                  <td>
+                    <p id="total"></p>
+                    </td>
+                  <td>{{ item.get_total_grocery_price }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan=5> You have not added any items yet.</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  {% if order.get_cart_total != None %}
+                  <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <td colspan=1>
+                    <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
+                      {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
+                    </a>
+                  </td>
+                  <td colspan=5>
+                    {% if order.get_cart_items %}
+                    <a href="{% url 'checkout' %}" class="pull-right btn btn-primary">Proceed To Checkout</a>
+                    {% endif %}
+                  </td>
+                </tr>
+            </table>
+            </tbody>
+            {% endblock %}
+          </body> -->
+            <!-- {% for item in order.get_cart_items %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                  {{ item.grocery.name }}
+                  <span class="pull-right">
+                    <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
+                      class="text-danger" onclick="return confirm_delete();">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </span>
+                </td>
+                <td>{{ item.grocery.price }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan=3> You have not added any items yet.</td>
+              </tr>
+              {% endfor %}
+              <tr>
+                {% if order.get_cart_total != None %}
+                <td colspan=2>
+                  <strong class="pull-right">Order Total:</strong>
+                </td>
+                <td colspan=1>
+                  $<strong>{{ order.get_cart_total }}</strong>
+                </td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td colspan=1>
+                  <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
+                    {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
+                  </a>
+                </td>
+                <td colspan=2>
+                  {% if order.get_cart_items %}
+                  <a href="{% url 'checkout' %}" class="pull-right btn btn-primary">Proceed To Checkout</a>
+                  {% endif %}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </div> -->
+  <!-- {% block scripts %}
+  {{ block.super }}
+  <script>
+    function confirm_delete() {
+      return confirm("Do you want to remove this item from cart?");
+    }
+  </script>
+  {% endblock scripts %} -->
+
+
+
+
+
+
+
             <!-- {% for item in order.get_cart_items %}
               <tr>
                 <td>{{ forloop.counter }}</td>
@@ -209,16 +344,6 @@
         </section>
       </div>
       <div class="col-md-1"></div>
-    </div>-->
+    </div>
 
-  
-  {% block scripts %}
-  {{ block.super }}
-  <script>
-    function confirm_delete() {
-      return confirm("Do you want to remove this item from cart?");
-    }
-  </script>
-  {% endblock scripts %}
-
-  {% endblock content %}
+-->
