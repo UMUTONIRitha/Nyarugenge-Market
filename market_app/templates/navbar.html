@@ -140,22 +140,23 @@
                 <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
-                    <li class="dropdown">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'grocery_list' %}">SHOP</a></li>
+                    <!-- <li class="dropdown">
                         <a href="{% url 'grocery_list' %}" class="nav-link dropdown-toggle arrow"
                             data-toggle="dropdown">SHOP</a>
-                        <!-- <ul class="dropdown-menu">
-                            <li><a href="shop.html">Sidebar Shop</a></li>
+                        <ul class="dropdown-menu">
+                            <li><a href="grocery_list.html">Grocery list</a></li>
                             <li><a href="shop-detail.html">Shop Detail</a></li>
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
                             <li><a href="my-account.html">My Account</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
-                        </ul> -->
-                    </li>
+                        </ul>
+                    </li> -->
                     {% else %}
                     <a class="navbar-brand" href="/"></a>
                     {% endif %}
-                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/gallery">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact Us</a></li>
                    
                 </ul>

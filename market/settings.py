@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'widget_tweaks',
     'tinymce',
+    'mathfilters',
    
 ]
 
@@ -86,7 +87,7 @@ WSGI_APPLICATION = 'market.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'markets',
+        'NAME': 'market_app',
         'USER': 'wecode',
     'PASSWORD':'123',
     }

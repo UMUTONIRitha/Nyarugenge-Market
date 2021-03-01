@@ -11,6 +11,7 @@ from creditcards.models import CardNumberField, CardExpiryField, SecurityCodeFie
 
 
 
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
@@ -129,7 +130,7 @@ class Grocery(models.Model):
 
 
 class OrderItem(models.Model):
-    grocery = models.OneToOneField(Grocery, on_delete=models.SET_NULL, null=True)
+    grocery = models.ForeignKey(Grocery, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
@@ -149,7 +150,7 @@ class Order(models.Model):
     ref_code = models.CharField(max_length=15)
     owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     is_ordered = models.BooleanField(default=False)
-    items = models.ManyToManyField(OrderItem)
+    items = models.ForeignKey(OrderItem, blank=True, on_delete=models.SET_NULL, null=True)
     date_ordered = models.DateTimeField(auto_now=True)
     
 
@@ -167,7 +168,7 @@ class Order(models.Model):
         #     total += OrderItem.get_final_price()
         # return total       
     
-        return sum([item.grocery.price for item in self.items.all()])
+        return sum([item.items.grocery.price for item in self.items.all()])
 
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)

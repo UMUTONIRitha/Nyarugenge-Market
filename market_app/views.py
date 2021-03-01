@@ -144,15 +144,15 @@ def profile(request, username):
 def grocery_list(request):
     object_list = Grocery.objects.all()
     categories = Category.get_category()
-    filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
-    current_order_groceries = []
-    if filtered_orders.exists():
-    	user_order = filtered_orders[0]
-    	user_order_items = user_order.items.all()
-    	current_order_groceries = [grocery.grocery for grocery in user_order_items]
+    # filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
+    # current_order_groceries = []
+    # if filtered_orders.exists():
+    # 	user_order = filtered_orders[0]
+    # 	user_order_items = user_order.items.all()
+    # 	current_order_groceries = [grocery.grocery for grocery in user_order_items]
     context = {
         'object_list': object_list,
-        'current_order_groceries': current_order_groceries,
+        # 'current_order_groceries': current_order_groceries,
         'categories':categories
     }
     return render(request, "groceries/grocery_list.html", context)
@@ -182,22 +182,30 @@ def get_user_pending_order(request):
 
 
 @login_required()
-def add_to_cart(request, **kwargs):
+def add_to_cart(request, item_id):
     user_profile = get_object_or_404(Profile, user=request.user)
-    grocery = Grocery.objects.filter(id=kwargs.get('item_id', "")).first()
-    order_item, status = OrderItem.objects.get_or_create(grocery=grocery)
-    user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
-    user_order.items.add(order_item)
-    if status:
-        user_order.ref_code = 221
+    grocery = Grocery.objects.filter(id=item_id).first()
+    if 'quantity' in request.GET and request.GET["quantity"]:
+        order_item = OrderItem(grocery=grocery, is_ordered=False, quantity=request.GET.get('quantity'))
+        user_order = Order(owner=user_profile, is_ordered=False, )
+        order_item.save()
+        user_order.items=order_item
         user_order.save()
+    # order_item, status = OrderItem.objects.get_or_create(grocery=grocery)
+    # user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
+    # user_order.items.add(order_item)
+    # print(user_order)
+    
+    # user_order.ref_code = 221
+    # user_order.quantity = request.GET.get('quantity')
+    # user_order.save()
     messages.info(request, "item added to cart")
     return redirect(reverse('grocery_list'))
 
 
 @login_required(login_url='login')
 def delete_from_cart(request, item_id):
-    item_to_delete = OrderItem.objects.filter(pk=item_id)
+    item_to_delete = Order.objects.filter(pk=item_id)
     if item_to_delete.exists():
         item_to_delete[0].delete()
         messages.info(request, "Item has been deleted")
@@ -208,10 +216,13 @@ def delete_from_cart(request, item_id):
 
 @login_required(login_url='login')
 def order_details(request, **kwargs):
-    existing_order = get_user_pending_order(request)
+    user_profile = get_object_or_404(Profile, user=request.user)
+    existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
     context = {
         'order': existing_order
     }
+    for i in context['order']:
+        print(i.items)
     return render(request, 'shopping_cart/order_summary.html', context)
 
 
@@ -219,7 +230,8 @@ def order_details(request, **kwargs):
 def checkout(request, **kwargs):
     client_token = 222
     current_user = request.user
-    existing_order = get_user_pending_order(request)
+    user_profile = get_object_or_404(Profile, user=request.user)
+    existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
     publishKey = 111
     if request.method == 'POST':
         form = DeliveryForm(request.POST)
@@ -284,6 +296,9 @@ def del_groceries(request, groc_id):
 def about (request):
     return render(request, 'about.html')
 
+def gallery(request):
+    return render(request, 'gallery.html')
+
 def update_groceries(request, groc_id):
     groc = Grocery.objects.get(id=groc_id)
     if request.method == "POST":
@@ -323,6 +338,8 @@ def transaction(request):
 
 def about(request):
     return render(request,'about.html')
+
+
 
 
 def contact(request):
