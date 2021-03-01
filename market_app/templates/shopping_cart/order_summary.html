@@ -4,6 +4,7 @@
 {% block content %}
 
 
+<html>
 <body>
   {% if messages %}
   <ul class="messages">
@@ -33,24 +34,23 @@
                 <tr>
                   <th scope="row">{{ forloop.counter }}</th>
                   <td>{{ item.grocery.name }}</td>
-                  <td>{{ item.grocery.price }}</td>
+                  <td id="price">{{ item.grocery.price }}</td>
 
+                  <td class="quantity-box"><input type="number" id="qty" size="4" value="{{ item.quantity }}" min="0"
+                      step="1" class="c-input-text text"></td>
 
-                  <td class="quantity-box"><input type="number" size="4" value="{{ item.quantity }}" min="0" step="1"
-                      class="c-input-text qty text"></td>
-
-                  <td>{{ item.get_total_grocery_price }}</td>
+                 
+                    <td id="total"> </td>
+           
                 </tr>
                 {% empty %}
                 <tr>
                   <td colspan=5> You have not added any items yet.</td>
                 </tr>
                 {% endfor %}
-
                 <tr>
                   {% if order.get_cart_total != None %}
                   <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td>
-
                 </tr>
                 {% endif %}
                 <tr>
@@ -67,63 +67,25 @@
                 </tr>
             </table>
             </tbody>
-            {% endblock %}
-            <!-- {% for item in order.get_cart_items %}
-              <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>
-                  {{ item.grocery.name }}
-                  <span class="pull-right">
-                    <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
-                      class="text-danger" onclick="return confirm_delete();">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </span>
-                </td>
-                <td>{{ item.grocery.price }}</td>
+            
 
-              </tr>
-              {% empty %}
-              <tr>
-                <td colspan=3> You have not added any items yet.</td>
-              </tr>
-              {% endfor %}
-              <tr>
-                {% if order.get_cart_total != None %}
-                <td colspan=2>
-                  <strong class="pull-right">Order Total:</strong>
-                </td>
-                <td colspan=1>
-                  $<strong>{{ order.get_cart_total }}</strong>
-                </td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td colspan=1>
-                  <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
-                    {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
-                  </a>
-                </td>
-                <td colspan=2>
-                  {% if order.get_cart_items %}
-                  <a href="{% url 'checkout' %}" class="pull-right btn btn-primary">Proceed To Checkout</a>
-                  {% endif %}
-                </td>
-              </tr>
-            </table>
-          </div>
-        </section>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-  </div>
   {% block scripts %}
   {{ block.super }}
-  <script>
-    function confirm_delete() {
-      return confirm("Do you want to remove this item from cart?");
-    }
-  </script>
+ <!-- <script type='text/javascript'
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+<script>
+  $(document).ready(function () {
+    $("input#qty").keypress(function () {
+      total = 0
+      var quantity = $("input#qty").val()
+      var price = $("td#price").val()
+      var total = price * quantity
+      $("td#total").html(total)
+    });
+  });
+</script>
+
   {% endblock scripts %}
 </body>
- -->
+</html>
+{% endblock %}
