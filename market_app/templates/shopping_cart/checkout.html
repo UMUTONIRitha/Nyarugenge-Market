@@ -13,11 +13,17 @@
         width: 700px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     }
+
     body {
         /* padding-top: 70px; */
         font-family: Poppins;
     }
 </style>
+
+
+
+
+
 <body>
     <div class="all-title-box" style="background-color:#b0b435">
         <div class="container">
@@ -34,14 +40,18 @@
                 <div class="col-md-5 col-xs-12">
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <h5 style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Deliver Address<br><small></small></h5>
+                            <h5 style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Deliver
+                                Address<br><small></small></h5>
                             <div>
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <!-- <form action="" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {{ form|crispy }}
-                                    <input type="submit" class="btn btn-warning btn-lg btn-block" style ="background-color: #b0b435;border:none;"value="Checkout" />
-                                </form>
+                                   
+                                </form> -->
+                                <button type="submit" onClick="makePayment()" class="btn btn-warning btn-lg btn-block"
+                                    style="background-color: #b0b435;border:none;">checkout</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -52,80 +62,129 @@
                     <table class="table">
                         <tr>
                             <td>
-                                {% for item in order.get_cart_items %}
+                                {% for item in order%}
                         <tr>
-                            <td>{{ item }}</td>
-                            <td>${{ item.grocery.price }}</td>
+                            <td>{{ item.items.grocery.name }}</td>
+                            <td>rwf {{ item.items.grocery.price }}</td>
+                            <td>kgs {{ item.items.quantity }}</td>
+                            <td>rwf {{ item.sub_total_amount }}</td>
                         </tr>
                         {% endfor %}
                         </td>
                         </tr>
                         <tr>
                             <td><strong>Order Total</strong> </td>
-                            <td> <strong>${{ order.get_cart_total }}</strong></td>
+                            <td> <strong>rwf {{ total_amount }}</strong></td>
+
                         </tr>
                     </table>
                 </div>
             </div>
-            </div>
-        </section>
-        <footer>
-            <div class="footer-main">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <div class="footer-widget">
-                                <h4>Nyarugenge Market</h4>
-                                <p>The Nyarugenge Market, located at the heart of Kigali. 
-                                    One Can Trust With Not Just Variety But Also Synonymous
-                                     With Quality Groceries. Shopping And Home Delivery Experience
-                                      Of Groceries Is Now Much Easier To Access Than Before.
-                                      Quality Groceries Wherever You May Be in Kigali.</p> 
-                  <p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality, Affordable And Fresh Groceries To All Our Customers.
-                                    We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully Selected Items To Your Doorstep.
-                                    We Accept All Payments Models And Work 24/7. </p> 							
-                            </div>
+    </div>
+    </section>
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>Nyarugenge Market</h4>
+                            <p>The Nyarugenge Market, located at the heart of Kigali.
+                                One Can Trust With Not Just Variety But Also Synonymous
+                                With Quality Groceries. Shopping And Home Delivery Experience
+                                Of Groceries Is Now Much Easier To Access Than Before.
+                                Quality Groceries Wherever You May Be in Kigali.</p>
+                            <p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality,
+                                Affordable And Fresh Groceries To All Our Customers.
+                                We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully
+                                Selected Items To Your Doorstep.
+                                We Accept All Payments Models And Work 24/7. </p>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <div class="footer-link">
-                                <h4>Information</h4>
-                                <ul>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Customer Service</a></li>
-                                    <li><a href="#">Shop with us</a></li>
-                                    <!-- <li><a href="#">Terms &amp; Conditions</a></li>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link">
+                            <h4>Information</h4>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="#">Shop with us</a></li>
+                                <!-- <li><a href="#">Terms &amp; Conditions</a></li>
                                     <li><a href="#">Privacy Policy</a></li> -->
-                                    <li><a href="#">Delivery Information</a></li>
-                                </ul>
-                            </div>
+                                <li><a href="#">Delivery Information</a></li>
+                            </ul>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <div class="footer-link-contact">
-                                <h4>Contact Us</h4>
-                                <ul>
-                                    <li>
-                                        <p><i class="fas fa-map-marker-alt"></i>Address: KN 2 St <br>Kigali<br> </p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fas fa-phone-square"></i>Phone: <a href="#">0788 525 816</a></p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fas fa-envelope"></i>Email: <a href="mailto:nyarugenge@market.com">nyarugenge@market.com</a></p>
-                                    </li>
-                                </ul>
-                            </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: KN 2 St <br>Kigali<br> </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="#">0788 525 816</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Email: <a
+                                            href="mailto:nyarugenge@market.com">nyarugenge@market.com</a></p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- End Footer  -->
-        
-        <!-- Start copyright  -->
-        <div class="footer-copyright">
-            <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
         </div>
-        
-        <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-        
-        {% endblock %}
+    </footer>
+    <!-- End Footer  -->
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
+    </div>
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+
+</body>
+
+<script>
+    const makePayment = () => {
+        var headers = new Headers();
+        const url = 'https://api.flutterwave.com/v3/payments';
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', `Bearer FLWSECK_TEST-05f0494d5fe92f48a8dc76b9902dd92c-X`);
+
+        const pay = {
+            "tx_ref": "JJEEJEMMED",
+            "amount": "6600",
+            "currency": "RWF",
+            "redirect_url": "https://www.google.com",
+            "payment_options": "card",
+
+            "customer": {
+                "email": "rithamarie9@gmail.com",
+                "phonenumber": "0722445347",
+                "name": "umutoni ritha"
+            },
+            "customizations": {
+                "title": "groceries",
+                "description": "fresh fruits",
+                "logo": "https://res.cloudinary.com/auca/image/upload/v1614703067/logo_cmkggu.png"
+            }
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(pay),
+        }).then(async (response) => {
+            const { data } = response
+            return (window.location = await data.link);
+        }).catch(err => {
+            console.log(err)
+        });
+
+    }
+</script>
+
+{% endblock %}

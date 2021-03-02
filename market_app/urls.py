@@ -48,6 +48,7 @@ urlpatterns=[
     path('about/',views.about,name = 'about'),
     path('contact/',views.contact,name = 'contact'),
     path('gallery/',views.gallery,name = 'gallery'),
+    
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),

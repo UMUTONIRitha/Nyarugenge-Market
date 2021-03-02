@@ -152,6 +152,7 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
     items = models.ForeignKey(OrderItem, blank=True, on_delete=models.SET_NULL, null=True)
     date_ordered = models.DateTimeField(auto_now=True)
+    sub_total_amount = models.DecimalField(default=1, blank=True,  decimal_places=2, max_digits=19)
     
 
     def get_cart_items(self):
@@ -168,7 +169,7 @@ class Order(models.Model):
         #     total += OrderItem.get_final_price()
         # return total       
     
-        return sum([item.items.grocery.price for item in self.items.all()])
+        return sum([item.items.grocery.subtotal for item in self.items.all()])
 
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)

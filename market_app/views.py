@@ -14,6 +14,9 @@ from .forms import SignUpForm,UpdateUserProfileForm,CommentForm,RateForm,Deliver
 from .decorators import admin_only,allowed_users
 from django.contrib import messages
 import datetime
+import requests
+from django.http import JsonResponse
+from decimal import *
 
 
 # import stripe
@@ -42,12 +45,13 @@ def search_grocery(request):
 
 def search_groceries(request):
     categories = Category.get_category()
-    filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
+    user_profile = get_object_or_404(Profile, user=request.user)
+    order = Order.objects.filter(owner=user_profile, is_ordered=False)
     current_order_groceries = []
-    if filtered_orders.exists():
-    	user_order = filtered_orders[0]
-    	user_order_items = user_order.items.all()
-    	current_order_groceries = [grocery.grocery for grocery in user_order_items]
+    # if filtered_orders.exists():
+    # 	# user_order = filtered_orders[0]
+    # 	user_order_items = user_order.items.all()
+    # 	current_order_groceries = [grocery.grocery for grocery in user_order_items]
     if 'searchgrocery' in request.GET and request.GET["searchgrocery"]:
         search_term = request.GET.get("searchgrocery")
         searched_project = Grocery.search_by_name(search_term)
@@ -185,11 +189,13 @@ def get_user_pending_order(request):
 def add_to_cart(request, item_id):
     user_profile = get_object_or_404(Profile, user=request.user)
     grocery = Grocery.objects.filter(id=item_id).first()
+    print(grocery.price)
     if 'quantity' in request.GET and request.GET["quantity"]:
         order_item = OrderItem(grocery=grocery, is_ordered=False, quantity=request.GET.get('quantity'))
         user_order = Order(owner=user_profile, is_ordered=False, )
         order_item.save()
         user_order.items=order_item
+        user_order.sub_total_amount = Decimal(order_item.quantity) * Decimal(int(grocery.price))
         user_order.save()
     # order_item, status = OrderItem.objects.get_or_create(grocery=grocery)
     # user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
@@ -218,6 +224,7 @@ def delete_from_cart(request, item_id):
 def order_details(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
     existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
+    
     context = {
         'order': existing_order
     }
@@ -232,6 +239,10 @@ def checkout(request, **kwargs):
     current_user = request.user
     user_profile = get_object_or_404(Profile, user=request.user)
     existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
+    total_amount = 0
+    for i in existing_order:
+        total_amount += i.sub_total_amount
+    print(total_amount)
     publishKey = 111
     if request.method == 'POST':
         form = DeliveryForm(request.POST)
@@ -247,6 +258,7 @@ def checkout(request, **kwargs):
         'order': existing_order,
         'client_token': client_token,
         'form':form,
+        'total_amount': total_amount
     }
     return render(request, 'shopping_cart/checkout.html', context)
 
@@ -311,7 +323,6 @@ def update_groceries(request, groc_id):
             Grocery.objects.filter(id=groc_id).update(name=form.data['name'], description=form.data['description'], price=form.data['price'], category=form.data['category'], quantity=form.data['quantity'])
             
             return redirect('index')
-            
     else:
         form = GroceryForm()
         context = {
@@ -345,3 +356,16 @@ def about(request):
 
 def contact(request):
     return render(request,'contactus.html')
+
+
+# def payment(request):
+#     ip_address = request.META.post('https://api.flutterwave.com/v3/payments', '')
+#     response = requests.get('http://freegeoip.net/json/%s' % ip_address)
+#     checkp = response.json()
+#     return render(request, '.html', {
+#         'tx_ref': checkp['tx_ref'],
+#         'amount': checkp['total_amount'],
+#         'currency': checkp['rwf'],
+#         'redirect_url': check['http://contact_us'],
+#         'payment_option':
+#     })

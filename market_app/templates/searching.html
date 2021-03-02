@@ -55,7 +55,7 @@
 
                 <div class="card-body">
                     <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
-                    <p>Price: ${{ object.price }}</p>
+                    <p>Price: rwf{{ object.price }}</p>
                     {% if object in current_order_groceries %}
                     <a href="{% url 'order_summary' %}" class="btn btn-warning" style="background-color:#b0b435;border:none;">Go to Cart</a>
                     <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">View item</a>
@@ -71,7 +71,7 @@
                 </div>
                 </div>
                     <div class="col-xl-7 col-lg-7 col-md-7">
-                        <div class="single-product-details">
+                        <div class="single-grocery-details">
                             <br><br><br>
                             <h2>{{object.name|title}}</h2>
                             {% if object.discount_price %}
