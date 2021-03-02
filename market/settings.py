@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'market_app',
         'USER': 'wecode',
-    'PASSWORD':'123',
+    'PASSWORD':'12345',
     }
 }
     

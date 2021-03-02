@@ -7,7 +7,6 @@
   body{
       font-family:Poppins;
   }
-  
 </style>
 <body>
   <div class="all-title-box" style="background-color:#b0b435">
@@ -18,7 +17,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -58,14 +57,10 @@
                     </span>
                   </td>
                   <td>{{ item.items.grocery.price }}</td>
-
                   <td class="quantity-box">{{ item.items.quantity }}</td>
-
                   <!-- <td>
                     <p id="total"></p>
                     </td> -->
-
-
                   <td class="subtotal">{{item.items.grocery.price|mul:item.items.quantity}}</td>
                 </tr>
                 {% empty %}
@@ -73,7 +68,6 @@
                   <td colspan=5> You have not added any items yet.</td>
                 </tr>
                 {% endfor %}
-
                 <tr>
                   {% if order.get_cart_total != None %}
                   <!-- <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td> -->
@@ -88,7 +82,7 @@
                   </td>
                   <td colspan=5>
                     {% if order %}
-                    <a href="{% url 'checkout' %}" class="pull-right btn btn-primary" style="background-color: #b0b435;border:none">Proceed To Checkout</a>
+                    <a href="{% url 'checkout' %}" class="pull-right btn btn-primary" style="background-color: #B0B435;border:none">Proceed To Checkout</a>
                     {% endif %}
                   </td>
                 </tr>
@@ -107,14 +101,14 @@
                           <div class="col-lg-4 col-md-12 col-sm-12">
                               <div class="footer-widget">
                                   <h4>Nyarugenge Market</h4>
-                                  <p>The Nyarugenge Market, located at the heart of Kigali. 
+                                  <p>The Nyarugenge Market, located at the heart of Kigali.
                                       One Can Trust With Not Just Variety But Also Synonymous
                                        With Quality Groceries. Shopping And Home Delivery Experience
                                         Of Groceries Is Now Much Easier To Access Than Before.
-                                        Quality Groceries Wherever You May Be in Kigali.</p> 
+                                        Quality Groceries Wherever You May Be in Kigali.</p>
                     <p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality, Affordable And Fresh Groceries To All Our Customers.
                                       We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully Selected Items To Your Doorstep.
-                                      We Accept All Payments Models And Work 24/7. </p> 							
+                                      We Accept All Payments Models And Work 24/7. </p>
                               </div>
                           </div>
                           <div class="col-lg-4 col-md-12 col-sm-12">
@@ -124,7 +118,6 @@
                                       <li><a href="#">About Us</a></li>
                                       <li><a href="#">Customer Service</a></li>
                                       <li><a href="#">Shop with us</a></li>
-                                     
                                       <li><a href="#">Delivery Information</a></li>
                                   </ul>
                               </div>
@@ -152,9 +145,7 @@
           <div class="footer-copyright">
               <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
           </div>
-          
           <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-          
-          
           </body>
 
+          {% endblock %}
