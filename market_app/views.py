@@ -311,6 +311,7 @@ def update_groceries(request, groc_id):
             Grocery.objects.filter(id=groc_id).update(name=form.data['name'], description=form.data['description'], price=form.data['price'], category=form.data['category'], quantity=form.data['quantity'])
             
             return redirect('index')
+            
     else:
         form = GroceryForm()
         context = {

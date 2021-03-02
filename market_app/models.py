@@ -140,8 +140,8 @@ class OrderItem(models.Model):
         return self.grocery.name
 
 
-    def get_total_grocery_price(self):         
-        return self.quantity * self.grocery.price           
+    # def get_total_grocery_price(self):         
+    #     return self.quantity * self.grocery.price           
 
     def get_final_price(self):
         return self.get_total_grocery_price
