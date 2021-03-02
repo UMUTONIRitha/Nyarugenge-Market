@@ -178,8 +178,8 @@
                     <form action="{% url 'add_to_cart' object.id %}">
                         {% csrf_token %}
                         <input type="number" name="quantity" size="4" value="" min="0" step="1"
-                      class="c-input-text qty text quantityid">
-                      <input type="submit" name="submit">
+                      class="c-input-text qty text quantityid" style="width: 70px;">
+                      <input type="submit" name="submit" >
 
                     </form>
 <!-- 
