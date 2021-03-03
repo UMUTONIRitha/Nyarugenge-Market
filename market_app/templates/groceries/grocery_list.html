@@ -142,16 +142,7 @@
 
 <header>
 
-    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-    <script type='text/javascript'>
-        $(document).ready(function(){
-            $("input#qty").keypress(function() {
-                var quantity = $("input#qty").val()
-                var total= total*quantity
-                $("p#total").html(total)
-            });
-        });
-    </script>
+    
     
     </header>
 
@@ -179,8 +170,11 @@
                         {% csrf_token %}
                         <input placeholder="0" type="number" name="quantity" size="4" value="" min="0" step="1"
                       class="c-input-text qty text quantityid" style="width:60px; border-radius: 5px;">
-                      
+                    
+                      <!-- <input type="submit" class="btn hvr-hover" style="margin-left: 15px; border-radius: 20px; color: white;" name="add" value="Add to cart"> -->
+
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i><input type="submit" class="btn hvr-hover" style="margin-left: 15px; border-radius: 20px; color: white;" name="Add to cart">
+
 
                     </form>
 <!-- 
