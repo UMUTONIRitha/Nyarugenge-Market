@@ -4,20 +4,25 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <style>
-  body{
-      font-family:Poppins;
+  body {
+    font-family: Poppins;
+  }
+
+  .all-title-box {
+    background-image: url("https://res.cloudinary.com/auca/image/upload/v1614705761/logo2_edbmqg.png");
   }
 </style>
+
 <body>
-  <div class="all-title-box" style="background-color:#b0b435">
+  <div class="all-title-box">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2>Order Summary</h2>
-            </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Order Summary</h2>
         </div>
+      </div>
     </div>
-</div>
+  </div>
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -26,126 +31,87 @@
   </ul>
   {% endif %}
   <br>
+
+
+<div class="cart-box-main">
   <div class="container">
-    <h1 style="font-size: 24px;font-weight: 700;text-transform: uppercase;text-align: center;">Order Summary</h1><br>
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <section>
-          <div class="table-responsive text-nowrap">
-            <table class="table table-hover table-bordered text-center">
-              <thead>
-                <tr class="text-center">
-                  <th>no.</th>
-                  <th>Item title</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total price</th>
-                  <!-- <th>Delete item</th> -->
-              </thead>
-              <tbody>
-                {% for item in order %}
-                <tr>
-                  <th scope="row">{{ forloop.counter }}</th>
-                  <td>
+      <div class="col-lg-12">
+        <div class="table-main table-responsive">
+          <table class="table" >
+            <thead>
+              <tr>
+                <th>Images</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in order %}
+              <tr>
+                
+                <td class="thumbnail-img">
+
+                  <a href="#">
+                    <img class="img-fluid" href="{{item.items.grocery.grocery_pic}}" alt="" />
+                  </a>
+                </td>
+                <td class="name-pr">
+                  <a href="#">
                     {{ item.items.grocery.name }}
-                    <span class="pull-right">
-                      <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
-                        class="text-danger">
-                        <i class="fas fa-trash"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>{{ item.items.grocery.price }}</td>
-                  <td class="quantity-box">{{ item.items.quantity }}</td>
-                  <!-- <td>
-                    <p id="total"></p>
-                    </td> -->
-                  <td class="subtotal">{{item.items.grocery.price|mul:item.items.quantity}}</td>
-                </tr>
+                  </a>
+                </td>
+                <td class="price-pr">
+                  <p>{{ item.items.grocery.price }} rwf</p>
+                </td>
+                <td class="quantity-box"><input type="number" size="4" value="{{ item.items.quantity }}" min="0" step="1"
+                    class="c-input-text qty text"></td>
+                <td class="total-pr">
+                  <p>{{item.items.grocery.price|mul:item.items.quantity}}</p>
+                </td>
                 {% empty %}
                 <tr>
                   <td colspan=5> You have not added any items yet.</td>
                 </tr>
                 {% endfor %}
-                <tr>
-                  {% if order.get_cart_total != None %}
-                  <!-- <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td> -->
-                  <td colspan="5"><strong id="maintotal"></strong></td>
-                </tr>
-                {% endif %}
-                <tr>
-                  <td colspan=1>
-                    <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
-                      {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
-                    </a>
-                  </td>
-                  <td colspan=5>
-                    {% if order %}
-                    <a href="{% url 'checkout' %}" class="pull-right btn btn-primary" style="background-color: #B0B435;border:none">Proceed To Checkout</a>
-                    {% endif %}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            </div>
-            </section>
-            </div>
-            <div class="col-md-1"></div>
-            </div>
-            </div><br><br>
-            <footer>
-              <div class="footer-main">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-lg-4 col-md-12 col-sm-12">
-                              <div class="footer-widget">
-                                  <h4>Nyarugenge Market</h4>
-                                  <p>The Nyarugenge Market, located at the heart of Kigali.
-                                      One Can Trust With Not Just Variety But Also Synonymous
-                                       With Quality Groceries. Shopping And Home Delivery Experience
-                                        Of Groceries Is Now Much Easier To Access Than Before.
-                                        Quality Groceries Wherever You May Be in Kigali.</p>
-                    <p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality, Affordable And Fresh Groceries To All Our Customers.
-                                      We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully Selected Items To Your Doorstep.
-                                      We Accept All Payments Models And Work 24/7. </p>
-                              </div>
-                          </div>
-                          <div class="col-lg-4 col-md-12 col-sm-12">
-                              <div class="footer-link">
-                                  <h4>Information</h4>
-                                  <ul>
-                                      <li><a href="#">About Us</a></li>
-                                      <li><a href="#">Customer Service</a></li>
-                                      <li><a href="#">Shop with us</a></li>
-                                      <li><a href="#">Delivery Information</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="col-lg-4 col-md-12 col-sm-12">
-                              <div class="footer-link-contact">
-                                  <h4>Contact Us</h4>
-                                  <ul>
-                                      <li>
-                                          <p><i class="fas fa-map-marker-alt"></i>Address: KN 2 St <br>Kigali<br> </p>
-                                      </li>
-                                      <li>
-                                          <p><i class="fas fa-phone-square"></i>Phone: <a href="#">0788 525 816</a></p>
-                                      </li>
-                                      <li>
-                                          <p><i class="fas fa-envelope"></i>Email: <a href="mailto:nyarugenge@market.com">nyarugenge@market.com</a></p>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </footer>
-          <div class="footer-copyright">
-              <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
-          </div>
-          <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-          </body>
+                {% for item in order %}
+                <td class="remove-pr">
+                  <a href="{% url 'delete_item' item.id %}">
+                    <i class="fas fa-times"></i>
+                  </a>
+                </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                {% if order.get_cart_total != None %}
+                <!-- <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td> -->
+                <td colspan="5"><strong id="maintotal"></strong></td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td colspan=1>
+                  <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
+                    {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
+                  </a>
+                </td>
+                <td colspan=5>
+                  {% if order %}
+                  <a href="{% url 'checkout' %}" class="pull-right btn btn-primary"
+                    style="background-color: #B0B435;border:none">Proceed To Checkout</a>
+                  {% endif %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-          {% endblock %}
+  
+
+  </div>
+</div>
+{% endblock %}
