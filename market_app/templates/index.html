@@ -6,476 +6,355 @@
 <html lang="en">
 <!-- Basic -->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       
+<style>
+    body {
+        font-family: Poppins;
+    }
 
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    .headers {
+        background-image: url("https://res.cloudinary.com/auca/image/upload/v1614705761/logo2_edbmqg.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: right;
+        height: 90vh;
+    }
 
-    <!-- Site Metas -->
+    .search-body {
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
 
-    <style>
-        body{
-            font-family:Poppins;
-        }
+    .box {
+        width: 500px;
+        height: 50px;
+        background-color: white;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .box>i {
+        font-size: 20px;
+        color: #777;
+    }
+
+    .box>input {
+        flex: 1;
+        height: 40px;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        padding-left: 10px;
+    }
+
+    .p-head {
+        text-align: center;
+        width: 60%;
+        margin: auto;
+        font-size: 40px;
+        color: white;
+        padding: 100px;
+        font-weight: bold;
+    }
+
+    .about {
+        text-align: center;
+        padding: 40px;
+        margin: 40px;
+
+
+    }
+
+    .about p {
+        text-align: center;
+        padding: 50px;
+    }
+
+    .borderr {
+        margin: 20px auto;
+        width: 200px;
+        height: 1px;
+        background: black;
+    }
+
+    #about-items {
+        display: flex;
+        text-align: center;
+        width: auto;
+        justify-content: center;
+    }
+
+    #about-items .item {
+
+        margin-bottom: 50px;
+        width: 300px;
+        padding: 5px;
+        line-height: 20px;
+
+    }
+
+    #about-items .item p {
+        font-size: 13px;
+        color: grey;
+
+    }
+
+    .gallery {
+        text-align: center;
+        padding: 100px;
+    
+        width: 100%;
         
-    </style>
+    }
 
-</head>
+    .gallery h1 {
+
+        margin-bottom: 40px;
+    }
+
+    .gallery .items {
+        width: 200%;
+    }
+</style>
+
+
 
 <body>
+    <div class="headers" data-aos="fade-up"
+    data-aos-duration="3000">
+
+        <div>
+            <h2 class="p-head" data-aos="fade-up"
+            data-aos-duration="3000">Discover amazing grocery deals and save actual money</h2>
+            {% if user.is_authenticated %}
 
 
-    <!-- Start Top Search -->
-    <div class="top-search">
+            <div class="search-body" data-aos="fade-up"
+            data-aos-duration="3000">
+                <form action="/searching">
+                    <div class="box">
+                        <i class="fa fa-search"></i>
+                        <input type="text" name="searchgrocery" placeholder="Search">
+                    </div>
+                </form>
+
+
+            </div>
+            {% else %}
+            <div class="search-body">
+                <form action="/search">
+                    <div class="box">
+                        <i class="fa fa-search"></i>
+                        <input type="text" name="searchgrocery" placeholder="Search">
+                    </div>
+                </form>
+
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="box-add-products">
         <div class="container">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="offer-box-products">
+                        <img class="img-fluid"
+                            src="https://res.cloudinary.com/auca/image/upload/v1614711717/add-img-02_meeqjm.jpg"
+                            alt="" />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="offer-box-products">
+                        <img class="img-fluid"
+                            src="https://res.cloudinary.com/auca/image/upload/v1614711726/add-img-01_etoufd.jpg"
+                            alt="" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- End Top Search -->
+    <section class="about">
 
-    <!-- Start Slider -->
-    <div id="slides-shop" class="cover-slides">
-        <ul class="slides-container">
-            <li class="text-center">
-                <img src="https://res.cloudinary.com/auca/image/upload/v1614591089/2_h2m7nu.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>NYARUNGEGE MARKET</strong></h1>
-                            <p class="m-b-40">See how your users experience our website in realtime or view <br> trends to see any changes in performance over time.</p>
-                            <p><a class="btn hvr-hover" href="{% url 'grocery_list' %}" style="border-radius: 20px;">Shop Now</a></p>
-                        </div>
-                    </div>
+        <div>
+            <p style="font-size: 20px;">How does <span style="color: rgb(127, 214, 127);">Nyarugenge</span> work ?</p>
+            <div id="about-items">
+                <div class="item">
+                    <img src="https://res.cloudinary.com/auca/image/upload/v1614713082/100_rvo80q.png"
+                        alt="dog-with-bone">
+                    <h3>Search for items</h3>
+                    <p>Find where you can find a particular item and compare its price across the available stores</p>
                 </div>
-            </li>
-            <li class="text-center">
-                <img src="https://res.cloudinary.com/auca/image/upload/v1614591393/5_hlrwwf.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>NYARUNGEGE MARKET</strong></h1>
-                            <p class="m-b-40">See how your users experience our website in realtime or view <br> trends to see any changes in performance over time.</p>
-                            <p><a class="btn hvr-hover" href="{% url 'grocery_list' %}" style="border-radius: 20px;">Shop Now</a></p>
-                        </div>
-                    </div>
+                <div class="item">
+                    <img src="https://res.cloudinary.com/auca/image/upload/v1614713088/120_rjpmrp.png" alt="dog-feet">
+                    <h3>Find out the best prices</h3>
+                    <p>Create and save your shopping lists so you can browse where you can purchase it by the cheapest
+                        price.</p>
                 </div>
-            </li>
-            <li class="text-center">
-                <img src="https://res.cloudinary.com/auca/image/upload/v1614591088/1_ssqguk.jpg" alt="">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>NYARUNGEGE MARKET</strong></h1>
-                            <p class="m-b-40">See how your users experience our website in realtime or view <br> trends to see any changes in performance over time.</p>
-                            <p><a class="btn hvr-hover" href="{% url 'grocery_list' %}" style="border-radius: 20px;">Shop Now</a></p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="slides-navigation">
-            <a href="#" ><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-            <a href="#" ><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <!-- End Slider -->
-
-    <!-- Start Categories  -->
-    <!-- <div class="categories-shop">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <div class="shop-cat-box">
-                        <img class="img-fluid" src="market_app/static/images/categories_img_01.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Vegetables</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <div class="shop-cat-box">
-                        <img class="img-fluid" src="market_app/static/images/categories_img_02.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Fruits</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <div class="shop-cat-box">
-                        <img class="img-fluid" src="market_app/static/images/categories_img_03.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Food</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <div class="shop-cat-box">
-                        <img class="img-fluid" src="market_app/static/images/categories_img_03.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Fish</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
-                    <div class="shop-cat-box">
-                        <img class="img-fluid" src="market_app/static/images/categories_img_03.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Meat</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
-                    <div class="shop-cat-box">
-                        <img class="img-fluid" src="market_app/static/images/categories_img_03.jpg" alt="" />
-                        <a class="btn hvr-hover" href="#">Sea Food</a>
-                    </div>
+                <div class="item">
+                    <img src="https://res.cloudinary.com/auca/image/upload/v1614713093/130_kikfkc.png" alt="dog-plate">
+                    <h3>Save time and money</h3>
+                    <p>compare before you buy! sign up totally free. Manage your shopping with ease-no hidden fees.</p>
                 </div>
             </div>
-        </div>
-    </div> -->
-    <!-- End Categories -->
+    </section>
 
-    <!-- <div class="box-add-products">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="offer-box-products">
-						<img class="img-fluid" src="market_app/static/images/add-img-01.jpg" alt="" />
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-12">
-					<div class="offer-box-products">
-						<img class="img-fluid" src="market_app/static/images/add-img-02.jpg" alt="" />
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-    <!-- Start Products  -->
-    <!-- <div class="products-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="title-all text-center">
-                        <h1>Our Products</h1>
-                    
-                    </div>
-                </div>
-            </div>
-            <hr> -->
-            <!-- --------------------------------------------------------------------------- -->
-            <!-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="special-menu text-center">
-                        <div class="button-group filter-button-group">
-                            <button class="active" data-filter="*">All</button>
-                            <button data-filter=".top-featured">Top featured</button>
-                            <button data-filter=".best-seller">Best seller</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- ------------------------------------------------------- -->
-<!-- 
-            <div class="row special-list">
-            <div class="row">
-                <div class="col-lg-3 col-md-12 special-grid best-seller">
-                    <div class="products-single fix ">
-                        <div class="box-img-hover"> -->
-                            <!-- <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div> -->
-                            <!-- <img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/12_powerhouse_vegetables_slideshow/intro_cream_of_crop.jpg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li> -->
-                                <!-- </ul> -->
-                                <!-- <a class="cart" href="#">Add to Cart</a> -->
-                            <!-- </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Fresh vegetables</h4>
-                            <h5> <a href="#"> View More </a></h5>
-                        </div>
-                    </div>
-                    <div class="products-single fix">
-                        <div class="box-img-hover"> -->
-                            <!-- <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div> -->
-                            <!-- <img src="https://www.unlockfood.ca/EatRightOntario/media/Website-images-resized/How-to-store-fruit-to-keep-it-fresh-resized.jpg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li> -->
-                                <!-- </ul> -->
-                                <!-- <a class="cart" href="#">Add to Cart</a> -->
-                            <!-- </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Fresh fruits</h4>
-                            <h5> <a href="#"> View More </a></h5>
-                        </div>
-                    </div>
-                    <div class="products-single fix">
-                        <div class="box-img-hover"> -->
-                            <!-- <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div> -->
-                            <!-- <img src="https://www.garzablancaresort.com/blog/wp-content/uploads/2017/01/seafood-restaurants-in-puerto-vallarta.jpeg" class="img-fluid" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li> -->
-                                <!-- </ul> -->
-                                <!-- <a class="cart" href="#">Add to Cart</a> -->
-                            <!-- </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Seafood</h4>
-                            <h5> <a href="#"> View More </a></h5>
-                        </div>
-                    </div>
-                    <div class="products-single fix">
-                        <div class="box-img-hover"> -->
-                            <!-- <div class="type-lb">
-                                <p class="sale">Sale</p>
-                            </div> -->
-                            <!-- <img src="https://www.shifa.com.pk/wp-content/uploads/2019/08/pic-4.jpg" alt="Image">
-                            <div class="mask-icon">
-                                <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li> -->
-                                    <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li> -->
-                                <!-- </ul> -->
-                                <!-- <a class="cart" href="#">Add to Cart</a> -->
-                            <!-- </div>
-                        </div>
-                        <div class="why-text">
-                            <h4>Fresh Meat</h4>
-                            <h5> <a href="#"> View More </a></h5>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- ----- -->
-            <!-- </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- End Products  -->
-
-    <!-- Start Blog  -->
     <div class="latest-blog">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title-all text-center">
-                        <h1>Our Groceries</h1>
+                        <h1 style="color: rgb(54, 54, 54);">Categories</h1>
                     </div>
                 </div>
-            </div>
+                </div>
             <div class="row">
                 <div class="col-md-6 col-lg-3 col-xl-3">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="https://www.unlockfood.ca/EatRightOntario/media/Website-images-resized/How-to-store-fruit-to-keep-it-fresh-resized.jpg" alt="" />
+                            <img class="img-fluid" src="https://res.cloudinary.com/auca/image/upload/v1614724170/ca4_tnsiop.png" alt="" />
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fruits</h3>
+                                <h3 style="color: rgb(54, 54, 54);">Fruits</h3>
                                 <p>Fresh fruits</p>
                             </div>
-                            <div class="why-text">
-                                <h5> <a href="/category/fruits"> View More </a></h5>
-                            </div>
-                            <!-- <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul> -->
                             
-                        </div>
+                        
+
+            </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 col-xl-3">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/12_powerhouse_vegetables_slideshow/intro_cream_of_crop.jpg" alt="" />
+                            <img class="img-fluid" src="https://res.cloudinary.com/auca/image/upload/v1614724158/ca3_drtbge.png" alt="" />
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>VEGETABLES</h3>
+                                <h3 style="color: rgb(54, 54, 54);">Vegetables</h3>
                                 <p>Fresh vegetables</p>
                             </div>
-                            <!-- <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul> -->
-                            <div class="why-text">
-                                <h5> <a href="/category/vegetables"> View More </a></h5>
-                            </div>
+                         
+                           
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-3 col-xl-3">
+                </div>  
+             <div class="col-md-6 col-lg-3 col-xl-3">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="https://www.shifa.com.pk/wp-content/uploads/2019/08/pic-4.jpg" alt="" />
+                            <img class="img-fluid" src="https://res.cloudinary.com/auca/image/upload/v1614724147/ca1_bs7lf1.png" alt="" />
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Meat</h3>
+                                <h3 style="color: rgb(54, 54, 54);">Meat</h3>
                                 <p>All kinds of meat</p>
                             </div>
-                            <!-- <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul> -->
-                            <div class="why-text">
-                                <h5> <a href="/category/meat"> View More </a></h5>
-                            </div>
+                         
+                
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-3 col-xl-3">
+                </div> 
+             <div class="col-md-6 col-lg-3 col-xl-3">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="https://www.garzablancaresort.com/blog/wp-content/uploads/2017/01/seafood-restaurants-in-puerto-vallarta.jpeg" alt="" />
+                            <img class="img-fluid" src="https://res.cloudinary.com/auca/image/upload/v1614724153/ca2_x6ykhe.png" alt="" />
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Seafood</h3>
+                                <h3 style="color: rgb(54, 54, 54);">Seafood</h3>
                                 <p>Fresh seafood</p>
                             </div>
-                            <!-- <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul> -->
-                            <div class="why-text">
-                                <h5> <a href="/category/seafood"> View More </a></h5>
+                    
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            
+            </div>
+            <h5 style="margin-left: 45%;"> <a class="btn btn-warning" href="/category/fruits" style="color: white; font-weight: bold; border-radius: 15px;">View More <br><i style="color: white;" class="fa fa-angle-double-down" aria-hidden="true"></i> </a></h5>
+
+            <div class="gallery">
+                <h1 style="color: rgb(54, 54, 54);">The Gallery</h1>
+                <div class="main-instagram owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614715851/56_ovbiik.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614715833/7_qt0ds7.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614715963/12_royy7p.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716036/45_vffi00.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716218/790_lw9zl4.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716222/78_xhyhf1.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716234/89_q7zoor.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716422/F_wo5psq.png" alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716440/FFFF_li73rx.png"
+                                alt="" />
+                            <div class="hov-in">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="https://res.cloudinary.com/auca/image/upload/v1614716444/FFFFF_g8lfbj.png"
+                                alt="" />
+                            <div class="hov-in">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div> <!-- End Blog  -->
-
-    <!-- Start Footer  -->
-    <footer>
-        <div class="footer-main">
-            <div class="container">
-				<!-- <div class="row">
-					<div class="col-lg-4 col-md-12 col-sm-12">
-						<div class="footer-top-box">
-							<h3>Business Time</h3>
-							<ul class="list-time">
-								<li>Monday - Friday: 08.00am to 05.00pm</li> <li>Saturday: 10.00am to 08.00pm</li> <li>Sunday: <span>Closed</span></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-12 col-sm-12">
-						<div class="footer-top-box">
-							<h3>Newsletter</h3>
-							<form class="newsletter-box">
-								<div class="form-group">
-									<input class="" type="email" name="Email" placeholder="Email Address*" />
-									<i class="fa fa-envelope"></i>
-								</div>
-								<button class="btn hvr-hover" type="submit">Submit</button>
-							</form>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-12 col-sm-12">
-						<div class="footer-top-box">
-							<h3>Social Media</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-							<ul>
-                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
-                            </ul>
-						</div>
-					</div>
-				</div>
-				<hr> -->
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-widget">
-                            <h4>Nyarugenge Market</h4>
-                            <p>The Nyarugenge Market, located at the heart of Kigali. 
-                                One Can Trust With Not Just Variety But Also Synonymous
-                                 With Quality Groceries. Shopping And Home Delivery Experience
-                                  Of Groceries Is Now Much Easier To Access Than Before.
-                                  Quality Groceries Wherever You May Be in Kigali.</p> 
-							<p>We Bring The Best Farm Fresh Produce Right At Your Door Step. We Ensure Quality, Affordable And Fresh Groceries To All Our Customers.
-                                We Believe In The Power Of Healthy Lifestyles And Make Sure We Deliver Carefully Selected Items To Your Doorstep.
-                                We Accept All Payments Models And Work 24/7. </p> 							
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link">
-                            <h4>Information</h4>
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Customer Service</a></li>
-                                <li><a href="#">Shop with us</a></li>
-                                <!-- <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li> -->
-                                <li><a href="#">Delivery Information</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link-contact">
-                            <h4>Contact Us</h4>
-                            <ul>
-                                <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Address: KN 2 St <br>Kigali<br> </p>
-                                </li>
-                                <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="#">0788 525 816</a></p>
-                                </li>
-                                <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:nyarugenge@market.com">nyarugenge@market.com</a></p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- End Footer  -->
-
-        <!-- Start copyright  -->
-        <div class="footer-copyright">
-            <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
-                <a href="https://html.design/">html design</a>
-            </p>
-        </div>
-        <!-- End copyright  -->
-
-    <!-- Start copyright  -->
-    <div class="footer-copyright">
-        <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
-    </div>
-    <!-- End copyright  -->
+            <script>
+                AOS.init();
+              </script>
 
 
-</body>
-
-</html>
-{% endblock %}
+            {% endblock %}

@@ -90,8 +90,8 @@
   function makePayment() {
     FlutterwaveCheckout({
       public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X", // Account number of the POST OFFICE
-      tx_ref: "{{parcel.tracking_number}}",
-      amount: {{parcel.total_price}},
+      tx_ref: "{{item.item_id}}",
+      amount: {{item.total_price}},
       currency: "RWF",
       country: "RW",
       payment_options: "card, mobilemoneyrwanda",
