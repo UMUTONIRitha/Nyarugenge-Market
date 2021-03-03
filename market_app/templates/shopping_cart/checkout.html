@@ -13,11 +13,17 @@
         width: 700px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     }
+
     body {
         /* padding-top: 70px; */
         font-family: Poppins;
     }
 </style>
+
+
+
+
+
 <body>
     <div class="all-title-box" style="background-color:#b0b435">
         <div class="container">
@@ -31,20 +37,7 @@
     <div class="container">
         <section>
             <div class="row" id="tablerow">
-                <div class="col-md-5 col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                            <h5 style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Deliver Address<br><small></small></h5>
-                            <div>
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form|crispy }}
-                                    <input type="submit" class="btn btn-warning btn-lg btn-block" style ="background-color: #b0b435;border:none;"value="Checkout" />
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-md-1 col-xs-12"></div>
                 <div class="col-md-6 col-xs-12">
                     <br>
@@ -52,72 +45,86 @@
                     <table class="table">
                         <tr>
                             <td>
-                                {% for item in order.get_cart_items %}
+                                {% for item in order%}
                         <tr>
-                            <td>{{ item }}</td>
-                            <td>${{ item.grocery.price }}</td>
+                            <td>{{ item.items.grocery.name }}</td>
+                            <td>rwf {{ item.items.grocery.price }}</td>
+                            <td>kgs {{ item.items.quantity }}</td>
+                            <td>rwf {{ item.sub_total_amount }}</td>
                         </tr>
                         {% endfor %}
                         </td>
                         </tr>
                         <tr>
                             <td><strong>Order Total</strong> </td>
-                            <td> <strong>${{ order.get_cart_total }}</strong></td>
+                            <td> <strong>rwf {{ total_amount }}</strong></td>
+
                         </tr>
                     </table>
                 </div>
+                <div class="col-md-5 col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                           
+                            <div>
+                                <!-- <form action="" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                   
+                                </form> -->
+                                <a href="https://ravesandbox.flutterwave.com/pay/nyarugengemarket" class="btn btn-warning btn-lg btn-block"
+                                    style="background-color: #b0b435;border:none;margin-top: 80px;">checkout</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
-        </section>
+    </div>
+    </section>
  
-        <div class="footer-copyright">
-            <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
-        </div>
-        
-        <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-        
-        <!-- {% if parcel.is_paid == False and parcel.status == 'Accepted' %}
-<form>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <button type="button" onClick="makePayment()" class="btn btn-success">Pay Now</button>
-</form>
-{% endif %}
+
+
+</body>
+
+<script>
+    const makePayment = () => {
+        var headers = new Headers();
+        const url = 'https://api.flutterwave.com/v3/payments';
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', `Bearer FLWSECK_TEST-05f0494d5fe92f48a8dc76b9902dd92c-X`);
+
+        const pay = {
+            "tx_ref": "JJEEJEMMED",
+            "amount": "6600",
+            "currency": "RWF",
+            "redirect_url": "https://www.google.com",
+            "payment_options": "card",
+
+            "customer": {
+                "email": "rithamarie9@gmail.com",
+                "phonenumber": "0722445347",
+                "name": "umutoni ritha"
+            },
+            "customizations": {
+                "title": "groceries",
+                "description": "fresh fruits",
+                "logo": "https://res.cloudinary.com/auca/image/upload/v1614703067/logo_cmkggu.png"
+            }
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(pay),
+        }).then(async (response) => {
+            const { data } = response
+            return (window.location = await data.link);
+        }).catch(err => {
+            console.log(err)
+        });
+
+    }
+</script>
 
 {% endblock %}
-
-{% block scripts %}
-<script>
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X", // Account number of the POST OFFICE
-      tx_ref: "{{item.item_id}}",
-      amount: {{item.total_price}},
-      currency: "RWF",
-      country: "RW",
-      payment_options: "card, mobilemoneyrwanda",
-      redirect_url: "http://localhost:8000/parcel-payment/{{parcel.tracking_number}}",
-      meta: {
-        consumer_id: 23,
-        consumer_mac: "92a3-912ba-1192a",
-      },
-      customer: {
-        email: "{{user.email}}",
-        phone_number: "{{user.username}}",
-        name: "{{user.get_full_name}}",
-      },
-      callback: function (data) {
-        console.log(data);
-      },
-      onclose: function() {
-        // close modal
-      },
-      customizations: {
-        title: "NYARUGENGE MARKET",
-        description: "Payment for mail {{parcel.tracking_number}}",
-        logo: "https://assets.piedpiper.com/logo.png",
-      },
-    });
-  }
-
-</script>  -->
-        {% endblock %}

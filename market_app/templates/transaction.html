@@ -56,20 +56,6 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-phone-alt"></i></div>
                                 orders
                             </a>
-                             
-                            <a class="nav-link" href="{% url 'comment' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
-                                Comment
-                            </a> 
-                            
-                            <a class="nav-link" href="{% url 'delivery' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-car-alt"></i></div>
-                                Delivery
-                            </a> 
-                            <a class="nav-link" href="{% url 'order_item' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-apple-alt"></i></div>
-                                order_item
-                            </a> 
                             <a class="nav-link" href="{% url 'transaction' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-money-bill-alt"></i></div>
                                 Transaction
@@ -91,19 +77,28 @@
                         </ol>
                         <div class="row">
                             <table class="table table-striped table-hover">
-                            
-                              
                                 <tr>
-                                    <td>id</td>
                                     <td>profile</td>
                                     <td>token</td>
                                     <td>order_id</td>
                                     <td>amount</td>
                                     <td>success</td>
                                     <td>timestamp</td>
-                                    <td>Delete</td>
-                                    <td>Update</td>
                                 </tr>
+                                {% for items in transaction%} 
+                                <tr>
+                                    <td>{{items.profile}}</td>
+                                    <td>{{items.token}}</td>
+                                    <td>{{items.order_id}}</td>
+                                    <td>{{items.amount}}</td>
+                                    <td>{{items.success}}</td>
+                                    <td>{{items.timestamp}}</td>
+                                    <td> 
+                                        <a href="{% url 'del_transaction' items.id %}">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                        </a> 
+                                </tr>
+                                {% endfor%}
                             </table>
                         </div>
                     </div>

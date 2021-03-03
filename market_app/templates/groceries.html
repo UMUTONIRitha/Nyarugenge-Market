@@ -56,20 +56,6 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-phone-alt"></i></div>
                                 orders
                             </a>
-                             
-                            <a class="nav-link" href="{% url 'comment' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i></div>
-                                Comment
-                            </a> 
-                            
-                            <a class="nav-link" href="{% url 'delivery' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-car-alt"></i></div>
-                                Delivery
-                            </a> 
-                            <a class="nav-link" href="{% url 'order_item' %}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-apple-alt"></i></div>
-                                order_item
-                            </a> 
                             <a class="nav-link" href="{% url 'transaction' %}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-money-bill-alt"></i></div>
                                 Transaction
@@ -95,22 +81,19 @@
                                     <th>Item Name</th>
                                     <th>Price</th>
                                     <th>In stock</th>
-                                    <th>Quantity Sold</th>
                                     <th>Last Update</th>
                                     <th></th>
                                 </thead>
-
                                 <tbody>
                                     {% for grocery in groceries %}
                                     <tr>
                                         <td>{{grocery.name}}</td>
                                         <td>{{grocery.price}}</td>
                                         <td>{{grocery.quantity}}kg</td>
-                                        <td>50kgs</td>
                                         <td>{{grocery.date}}</td>
                                         <td>
                                             <a href="{% url 'del_groceries' grocery.id %}">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-trash"></i></button>
                                             </a>
                                         </td>
                                         <td>
@@ -122,7 +105,6 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </main>

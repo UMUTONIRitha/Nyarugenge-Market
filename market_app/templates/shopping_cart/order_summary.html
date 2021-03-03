@@ -4,25 +4,20 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <style>
-  body {
-    font-family: Poppins;
-  }
-
-  .all-title-box {
-    background-image: url("https://res.cloudinary.com/auca/image/upload/v1614705761/logo2_edbmqg.png");
+  body{
+      font-family:Poppins;
   }
 </style>
-
 <body>
-  <div class="all-title-box">
+  <div class="all-title-box" style="background-color:#b0b435">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2>Order Summary</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Order Summary</h2>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -31,87 +26,75 @@
   </ul>
   {% endif %}
   <br>
-
-
-<div class="cart-box-main">
   <div class="container">
+    <h1 style="font-size: 24px;font-weight: 700;text-transform: uppercase;text-align: center;">Order Summary</h1><br>
     <div class="row">
-      <div class="col-lg-12">
-        <div class="table-main table-responsive">
-          <table class="table" >
-            <thead>
-              <tr>
-                <th>Images</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for item in order %}
-              <tr>
-                
-                <td class="thumbnail-img">
-
-                  <a href="#">
-                    <img class="img-fluid" href="{{item.items.grocery.grocery_pic}}" alt="" />
-                  </a>
-                </td>
-                <td class="name-pr">
-                  <a href="#">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <section>
+          <div class="table-responsive text-nowrap">
+            <table class="table table-hover table-bordered text-center">
+              <thead>
+                <tr class="text-center">
+                  <th>no.</th>
+                  <th>Item title</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total price</th>
+                  <!-- <th>Delete item</th> -->
+              </thead>
+              <tbody>
+                {% for item in order %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>
                     {{ item.items.grocery.name }}
-                  </a>
-                </td>
-                <td class="price-pr">
-                  <p>{{ item.items.grocery.price }} rwf</p>
-                </td>
-                <td class="quantity-box"><input type="number" size="4" value="{{ item.items.quantity }}" min="0" step="1"
-                    class="c-input-text qty text"></td>
-                <td class="total-pr">
-                  <p>{{item.items.grocery.price|mul:item.items.quantity}}</p>
-                </td>
+                    <span class="pull-right">
+                      <a href="{% url 'delete_item' item.id %}" data-balloon="remove this item from cart"
+                        class="text-danger">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </span>
+                  </td>
+                  <td>{{ item.items.grocery.price }}</td>
+                  <td class="quantity-box">{{ item.items.quantity }}</td>
+                  <!-- <td>
+                    <p id="total"></p>
+                    </td> -->
+                  <td class="subtotal">{{item.items.grocery.price|mul:item.items.quantity}}</td>
+                  
+                </tr>
                 {% empty %}
                 <tr>
                   <td colspan=5> You have not added any items yet.</td>
                 </tr>
                 {% endfor %}
-                {% for item in order %}
-                <td class="remove-pr">
-                  <a href="{% url 'delete_item' item.id %}">
-                    <i class="fas fa-times"></i>
-                  </a>
-                </td>
-                {% endfor %}
-              </tr>
-              <tr>
-                {% if order.get_cart_total != None %}
-                <!-- <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td> -->
-                <td colspan="5"><strong id="maintotal"></strong></td>
-              </tr>
-              {% endif %}
-              <tr>
-                <td colspan=1>
-                  <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
-                    {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
-                  </a>
-                </td>
-                <td colspan=5>
-                  {% if order %}
-                  <a href="{% url 'checkout' %}" class="pull-right btn btn-primary"
-                    style="background-color: #B0B435;border:none">Proceed To Checkout</a>
-                  {% endif %}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+                <tr>
+                  {% if order.get_cart_total != None %}
+                  <!-- <td colspan="5"><strong>Order Total: {{ order.get_cart_total }}rwf</strong></td> -->
+                  <td colspan="5"><strong id="maintotal"></strong></td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <td colspan=1>
+                    <a href="{% url 'grocery_list' %}" class="btn btn-warning pull-left">
+                      {% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
+                    </a>
+                  </td>
+                  <td colspan=5>
+                    {% if order %}
+                    <a href="{% url 'checkout' %}" class="pull-right btn btn-primary" style="background-color: #B0B435;border:none">Proceed To Checkout</a>
+                    {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            </section>
+            </div>
+            <div class="col-md-1"></div>
+            </div>
+            </div><br><br>
+ 
 
-  
-
-  </div>
-</div>
-{% endblock %}
+          {% endblock %}
