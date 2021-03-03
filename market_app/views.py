@@ -14,7 +14,7 @@ from .forms import SignUpForm,UpdateUserProfileForm,CommentForm,RateForm,Deliver
 from .decorators import admin_only,allowed_users
 from django.contrib import messages
 import datetime
-
+import requests
 from django.http import JsonResponse
 from decimal import *
 
@@ -350,6 +350,38 @@ def transaction(request):
 
 def about(request):
     return render(request,'about.html')
+
+def deli(request):
+
+    # client_token = 222
+    # current_user = request.user
+    # user_profile = get_object_or_404(Profile, user=request.user)
+    # existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
+    # total_amount = 0
+    # for i in existing_order:
+    #     total_amount += i.sub_total_amount
+    # print(total_amount)
+    # publishKey = 111
+    if request.method == 'POST':
+        form = DeliveryForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.save()
+            clear_from_cart(request)
+            return redirect('grocery_list')
+    else:
+        form = DeliveryForm()
+    context = {
+        # 'order': existing_order,
+        # 'client_token': client_token,
+        'form':form,
+        # 'total_amount': total_amount
+    }
+    return render(request, 'deliverly.html', context)
+
+# def payment(request):
+#     return render(request,'shopping_cart/payment.php')
 
 
 

@@ -240,9 +240,9 @@ class Delivery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='deliver')
     location  = models.CharField(max_length=128)
     phone = PhoneField(blank=True, help_text='Contact phone number')
-    cc_number = CardNumberField('card number')
-    cc_expiry = CardExpiryField('expiration date')
-    cc_code = SecurityCodeField('security code')
+    # email = models.EmailField(db.String(255), unique = True, index = True)
+    # cc_expiry = CardExpiryField('expiration date')
+    # cc_code = SecurityCodeField('security code')
 
 
     def save_deliver(self):

@@ -88,49 +88,49 @@
         </div>
         
         <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+
+
+
         
-        <!-- {% if parcel.is_paid == False and parcel.status == 'Accepted' %}
-<form>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <button type="button" onClick="makePayment()" class="btn btn-success">Pay Now</button>
-</form>
-{% endif %}
-
-{% endblock %}
-
-{% block scripts %}
-<script>
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X", // Account number of the POST OFFICE
-      tx_ref: "{{item.item_id}}",
-      amount: {{item.total_price}},
-      currency: "RWF",
-      country: "RW",
-      payment_options: "card, mobilemoneyrwanda",
-      redirect_url: "http://localhost:8000/parcel-payment/{{parcel.tracking_number}}",
-      meta: {
-        consumer_id: 23,
-        consumer_mac: "92a3-912ba-1192a",
-      },
-      customer: {
-        email: "{{user.email}}",
-        phone_number: "{{user.username}}",
-        name: "{{user.get_full_name}}",
-      },
-      callback: function (data) {
-        console.log(data);
-      },
-      onclose: function() {
-        // close modal
-      },
-      customizations: {
-        title: "NYARUGENGE MARKET",
-        description: "Payment for mail {{parcel.tracking_number}}",
-        logo: "https://assets.piedpiper.com/logo.png",
-      },
-    });
-  }
-
-</script>  -->
+        <script>
+            const makePayment = () => {
+                var headers = new Headers();
+                const url = 'https://api.flutterwave.com/v3/payments';
+                headers.append("Access-Control-Allow-Origin", "*")
+                headers.append('Content-Type', 'application/json');
+                headers.append('Accept', 'application/json');
+                headers.append('Authorization', `Bearer FLWSECK_TEST-05f0494d5fe92f48a8dc76b9902dd92c-X`);
+                headers.append("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+                const pay = {
+                    "tx_ref": "JJEEJEMMED",
+                    "amount": "6600",
+                    "currency": "RWF",
+                    "redirect_url": "https://www.google.com",
+                    "payment_options": "card",
+        
+                    "customer": {
+                        "email": "rithamarie9@gmail.com",
+                        "phonenumber": "0783879009",
+                        "name": "umutoni ritha"
+                    },
+                    "customizations": {
+                        "title": "groceries",
+                        "description": "fresh fruits",
+                        "logo": "https://res.cloudinary.com/auca/image/upload/v1614703067/logo_cmkggu.png"
+                    }
+                }
+                fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(pay),
+                }).then(async (response) => {
+                    const { data } = response
+                    return (window.location = await data.link);
+                }).catch(err => {
+                    console.log(err)
+                });
+        
+            }
+        </script>
         {% endblock %}

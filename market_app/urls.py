@@ -48,6 +48,8 @@ urlpatterns=[
     path('about/',views.about,name = 'about'),
     path('contact/',views.contact,name = 'contact'),
     path('gallery/',views.gallery,name = 'gallery'),
+    path('deli/',views.deli,name = 'deli'),
+    # path('payment/',views.payment,name = 'payment'),
     
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
