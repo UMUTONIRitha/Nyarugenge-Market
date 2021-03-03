@@ -92,44 +92,5 @@
 
 
         
-        <script>
-            const makePayment = () => {
-                var headers = new Headers();
-                const url = 'https://api.flutterwave.com/v3/payments';
-                headers.append("Access-Control-Allow-Origin", "*")
-                headers.append('Content-Type', 'application/json');
-                headers.append('Accept', 'application/json');
-                headers.append('Authorization', `Bearer FLWSECK_TEST-05f0494d5fe92f48a8dc76b9902dd92c-X`);
-                headers.append("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
-                const pay = {
-                    "tx_ref": "JJEEJEMMED",
-                    "amount": "6600",
-                    "currency": "RWF",
-                    "redirect_url": "https://www.google.com",
-                    "payment_options": "card",
-        
-                    "customer": {
-                        "email": "rithamarie9@gmail.com",
-                        "phonenumber": "0783879009",
-                        "name": "umutoni ritha"
-                    },
-                    "customizations": {
-                        "title": "groceries",
-                        "description": "fresh fruits",
-                        "logo": "https://res.cloudinary.com/auca/image/upload/v1614703067/logo_cmkggu.png"
-                    }
-                }
-                fetch(url, {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(pay),
-                }).then(async (response) => {
-                    const { data } = response
-                    return (window.location = await data.link);
-                }).catch(err => {
-                    console.log(err)
-                });
-        
-            }
-        </script>
+       
         {% endblock %}
