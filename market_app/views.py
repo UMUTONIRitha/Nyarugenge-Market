@@ -14,7 +14,7 @@ from .forms import SignUpForm,UpdateUserProfileForm,CommentForm,RateForm,Deliver
 from .decorators import admin_only,allowed_users
 from django.contrib import messages
 import datetime
-import requests
+
 from django.http import JsonResponse
 from decimal import *
 
@@ -358,14 +358,3 @@ def contact(request):
     return render(request,'contactus.html')
 
 
-# def payment(request):
-#     ip_address = request.META.post('https://api.flutterwave.com/v3/payments', '')
-#     response = requests.get('http://freegeoip.net/json/%s' % ip_address)
-#     checkp = response.json()
-#     return render(request, '.html', {
-#         'tx_ref': checkp['tx_ref'],
-#         'amount': checkp['total_amount'],
-#         'currency': checkp['rwf'],
-#         'redirect_url': check['http://contact_us'],
-#         'payment_option':
-#     })
