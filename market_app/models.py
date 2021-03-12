@@ -17,6 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=128)
     second_name = models.CharField(max_length=128)
+    middle_name = models.CharField(max_length=60, blank=True)
     phone = PhoneField(blank=True, help_text='Contact phone number')
     my_location  = models.CharField(max_length=128)
     profile_pic = models.ImageField(upload_to='profile/', default='a.png')

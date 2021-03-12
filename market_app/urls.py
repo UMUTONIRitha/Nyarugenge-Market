@@ -49,12 +49,20 @@ urlpatterns=[
     path('contact/',views.contact,name = 'contact'),
     path('gallery/',views.gallery,name = 'gallery'),
     path('deli/',views.deli,name = 'deli'),
+
+
+
+    # path('success.html', views.Success.as_view(), name='success'),
+    # path('home.html', views.HomePageView.as_view(), name='home'),
+    path('deliverly.html', views.Success.as_view(), name='deli'),
+    path('checkout.html', views.HomePageView.as_view(), name='checkout'),
     # path('payment/',views.payment,name = 'payment'),
     
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),
     url(r'^checkout/$', views.checkout, name='checkout'),
+
 ]
 
 if settings.DEBUG:

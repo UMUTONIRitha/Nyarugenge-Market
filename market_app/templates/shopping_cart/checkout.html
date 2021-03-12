@@ -47,8 +47,55 @@
                                     {{ form|crispy }}
                                    
                                 </form> -->
-                                <a href="https://ravesandbox.flutterwave.com/pay/nyarugengemarket" class="btn btn-warning btn-lg btn-block"
-                                    style="background-color: #b0b435;border:none;">checkout</a>
+                                <!-- <a href="https://ravesandbox.flutterwave.com/pay/nyarugengemarket" class="btn btn-warning btn-lg btn-block"
+                                    style="background-color: #b0b435;border:none;">checkout</a> -->
+
+
+                                    <form>
+                                        <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+                                         
+                                          <button type="button" onClick="payWithRave()">pay Here</button>
+                                      </form>
+                                      <script>
+                                          const total_amount="{{ total_amount }}"
+                                          const phone="{{user_profile.phone}}"
+                                          const email="{{current_user.email}}"
+                                          const random="{{random_num}}"
+                                          console.log(random)
+
+                                          const key = "{{public_key}}"
+                                  
+                                          function payWithRave() {
+                                              var x = getpaidSetup({
+                                                  PBFPubKey: key,
+                                                  customer_email: email,
+                                                  amount: total_amount,
+                                                  customer_phone: phone,
+                                                  currency: "RWF",
+                                                  txref: random.toString(),
+                                                  custom_title: "Nyarugenge-Market",
+                                                  onclose: function() {},
+                                                   callback: function(response) {
+                                          var txref = response.tx.txRef;
+                                          console.log("This is the response returned after a charge", response);
+                                          if (
+                                              response.tx.chargeResponseCode == "00" ||
+                                              response.tx.chargeResponseCode == "0"
+                                          ) {
+                                              document.location.href = "http://127.0.0.1:8000/deli"
+                                                  // redirect to a success page
+                                          } else {
+                                              // redirect to a failure page.
+                                          }
+                                          x.close();
+                                      }
+                                              });
+                                          }
+                                  
+                                         
+                                      </script>
+
+
                             </div>
 
                         </div>

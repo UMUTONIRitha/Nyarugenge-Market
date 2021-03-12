@@ -17,6 +17,10 @@ import datetime
 import requests
 from django.http import JsonResponse
 from decimal import *
+import random
+
+from django.conf import settings
+from django.views.generic.base import TemplateView
 
 
 # import stripe
@@ -240,6 +244,9 @@ def checkout(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
     existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
     total_amount = 0
+    random_num =  random.randint(2345678909800, 9923456789000)
+    public_key = settings.RAVE_PUBLIC_KEY 
+    print(random_num)
     for i in existing_order:
         total_amount += i.sub_total_amount
     print(total_amount)
@@ -258,7 +265,11 @@ def checkout(request, **kwargs):
         'order': existing_order,
         'client_token': client_token,
         'form':form,
-        'total_amount': total_amount
+        'total_amount': total_amount,
+        'current_user':current_user,
+        'user_profile':user_profile,
+        'random_num':random_num,
+        'public_key':public_key
     }
     return render(request, 'shopping_cart/checkout.html', context)
 
@@ -364,12 +375,12 @@ def deli(request):
     # publishKey = 111
     if request.method == 'POST':
         form = DeliveryForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = current_user
-            comment.save()
-            clear_from_cart(request)
-            return redirect('grocery_list')
+        # if form.is_valid():
+        #     comment = form.save(commit=False)
+        #     # comment.user = current_user
+        #     comment.save()
+        #     clear_from_cart(request)
+        #     return redirect('grocery_list')
     else:
         form = DeliveryForm()
     context = {
@@ -380,8 +391,6 @@ def deli(request):
     }
     return render(request, 'deliverly.html', context)
 
-# def payment(request):
-#     return render(request,'shopping_cart/payment.php')
 
 
 
@@ -390,3 +399,29 @@ def contact(request):
     return render(request,'contactus.html')
 
 
+
+# class HomePageView(TemplateView):
+#     template_name = 'home.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['key'] = settings.RAVE_PUBLIC_KEY
+       
+#         return context
+
+# class Success(TemplateView):
+#     template_name = 'success.html'
+
+
+class HomePageView(TemplateView):
+    
+    template_name = 'shopping_cart/checkout.html'
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['key'] = settings.RAVE_PUBLIC_KEY
+       
+    return context
+
+class Success(TemplateView):
+    template_name = 'deliverly.html'
