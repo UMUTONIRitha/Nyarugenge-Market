@@ -22,8 +22,6 @@
 
 
 
-
-
 <body>
     <div class="all-title-box" style="background-color:#b0b435">
         <div class="container">
@@ -37,23 +35,9 @@
     <div class="container">
         <section>
             <div class="row" id="tablerow">
-                <div class="col-md-5 col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                           
-                            <div>
-                                <!-- <form action="" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form|crispy }}
-                                   
-                                </form> -->
-                                <a href="https://ravesandbox.flutterwave.com/pay/nyarugengemarket" class="btn btn-warning btn-lg btn-block"
-                                    style="background-color: #b0b435;border:none;">checkout</a>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
+                
+
                 <div class="col-md-1 col-xs-12"></div>
                 <div class="col-md-6 col-xs-12">
                     <br>
@@ -78,19 +62,98 @@
                         </tr>
                     </table>
                 </div>
+                <div class="col-md-5 col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                           
+                            <div>
+                                <form>
+                                    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+                                      <button type="button" cstyle="margin-left:200px;" class="btn btn-outline-dark" onClick="payWithRave()">pay Here</button>
+                                  </form>
+                                  <script>
+                                      const total_amount="{{ total_amount }}"
+                                      const phone="{{user_profile.phone}}"
+                                      const email="{{current_user.email}}"
+                                      const random="{{random_num}}"
+                                      console.log(random)
+                                      const key = "{{public_key}}"
+                                      function payWithRave() {
+                                          var x = getpaidSetup({
+                                              PBFPubKey: key,
+                                              customer_email: email,
+                                              amount: total_amount,
+                                              customer_phone: phone,
+                                              currency: "RWF",
+                                              txref: random.toString(),
+                                              custom_title: "Nyarugenge-Market",
+                                              onclose: function() {},
+                                               callback: function(response) {
+                                      var txref = response.tx.txRef;
+                                   
+                                      if (
+                                          response.tx.chargeResponseCode == "00" ||
+                                          response.tx.chargeResponseCode == "0"
+                                      ) {
+                                          document.location.href = "http://127.0.0.1:8000/deli"
+                                              // redirect to a success page
+                                      } else {
+                                          // redirect to a failure page.
+                                      }
+                                      x.close();
+                                  }
+                                          });
+                                      }
+                                  </script>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
-        </section>
- 
-        <div class="footer-copyright">
-            <p class="footer-company">All Rights Reserved. &copy; 2021 <a href="#">NYARUGENGE MARKET</a> </p>
-        </div>
-        
-        <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+    </div>
+    </section>
 
+</body>
+<script>
+    const makePayment = () => {
+        var headers = new Headers();
+        const url = 'https://api.flutterwave.com/v3/payments';
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', `Bearer FLWSECK_TEST-05f0494d5fe92f48a8dc76b9902dd92c-X`);
 
+        const pay = {
+            "tx_ref": "JJEEJEMMED",
+            "amount": "6600",
+            "currency": "RWF",
+            "redirect_url": "https://www.google.com",
+            "payment_options": "card",
 
+            "customer": {
+                "email": "rithamarie9@gmail.com",
+                "phonenumber": "0722445347",
+                "name": "umutoni ritha"
+            },
+            "customizations": {
+                "title": "groceries",
+                "description": "fresh fruits",
+                "logo": "https://res.cloudinary.com/auca/image/upload/v1614703067/logo_cmkggu.png"
+            }
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(pay),
+        }).then(async (response) => {
+            const { data } = response
+            return (window.location = await data.link);
+        }).catch(err => {
+            console.log(err)
+        });
 
-        
-       
-        {% endblock %}
+    }
+</script>
+
+{% endblock %}
+

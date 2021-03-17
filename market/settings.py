@@ -23,12 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+
+
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -87,7 +90,6 @@ MODE=config("MODE", default="dev")
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-
 if config('MODE')=="dev":
        DATABASES = {
        'default': {
@@ -95,7 +97,7 @@ if config('MODE')=="dev":
            'NAME': config('DB_NAME'),
            'USER': config('DB_USER'),
            'PASSWORD': config('DB_PASSWORD'),
-          
+
        }
        
    }
@@ -109,9 +111,9 @@ else:
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-    
 
 
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Password validation
@@ -167,8 +169,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
 
-
 CRISPY_TEMPLATE_PACK  = "bootstrap4"
 LOGIN_REDIRECT_URL = 'index'
 
 LOGOUT_REDIRECT_URL = 'index'
+
+RAVE_PUBLIC_KEY = 'FLWPUBK_TEST-684ddd40c1c44d805919814ec5cae65d-X'
+RAVE_SECRET_KEY = 'FLWSECK_TEST-0954684b29f5bdce9148cbe3e718215e-X'

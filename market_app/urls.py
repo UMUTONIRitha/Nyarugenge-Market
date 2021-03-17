@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import index,search_groceries,search_grocery, grocery_category, comment, signup, profile, grocery_list, groceries_category, get_user_pending_order,add_to_cart, delete_from_cart, order_details, checkout, clear_from_cart, admin_page, about, groceries, del_groceries, update_groceries,orders,order_item,comment,delivery,transaction
+from .views import index,search_groceries,search_grocery, grocery_category, comment, signup, profile, grocery_list, groceries_category, get_user_pending_order,add_to_cart, delete_from_cart, order_details, checkout, clear_from_cart, admin_page, about, groceries, del_groceries, update_groceries,orders,order_item,comment,delivery,transaction,del_orders,del_transaction
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url,include
@@ -49,12 +49,15 @@ urlpatterns=[
     path('contact/',views.contact,name = 'contact'),
     path('gallery/',views.gallery,name = 'gallery'),
     path('deli/',views.deli,name = 'deli'),
-    # path('payment/',views.payment,name = 'payment'),
-    
+
+    path('delete/transaction/<transaction_id>', del_transaction, name='del_transaction'),
+    path('delete/orders/<order_id>', del_orders, name='del_orders'),
+
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),
     url(r'^checkout/$', views.checkout, name='checkout'),
+    
 ]
 
 if settings.DEBUG:

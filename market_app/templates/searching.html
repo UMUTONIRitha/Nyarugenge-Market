@@ -55,14 +55,14 @@
 
                 <div class="card-body">
                     <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
-                    <p>Price:{{ object.price }} rwf</p>
+                    <p>Price: {{ object.price }} rwf</p>
                   
                     <form action="{% url 'add_to_cart' object.id %}" >
                         {% csrf_token %}
                         <input placeholder="0" type="number" name="quantity" size="4" value="" min="0" step="1"
                       class="c-input-text qty text quantityid" style="width:60px; border-radius: 5px;">
                       
-                      <i class="fa fa-shopping-cart" aria-hidden="true"></i><input type="submit" class="btn hvr-hover" style="margin-left: 15px; border-radius: 20px; color: white;" name="Add to cart">
+                      <input type="submit" class="btn hvr-hover" style="margin-left:8px; border-radius: 20px; color: white; background-color: rgb(165, 165, 17);" name="add" value="to cart">
     
                     </form>
                 </div>
