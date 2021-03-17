@@ -22,6 +22,7 @@
     <div class="all-title-box" style="background-color:#b0b435">
         <div class="container">
             <div class="row">
+                <h5 style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Delivery Information<br><small></small></h5>  
             </div>
         </div>
     </div> <br><br>
@@ -35,12 +36,25 @@
                 <div class="col-md-5 col-xs-12">
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <h5 style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Deliver Address<br><small></small></h5>
-                            <div>
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{ form|crispy }}
-                                    <input type="submit" class="btn btn-warning btn-lg btn-block" style ="background-color: #b0b435;border:none;"value="send info" />
+                            <div class="col-md-12">
+                                <form id="delivery">
+                                    <div class="form-group">
+                                        <label for="name" > Enter your full names</label>
+                                        <input type="text" id="names" class="form-control"
+                                            placeholder="......please enter your full name..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location" >Enter your location</label>
+                                        <input type="text" id="location" class="form-control"
+                                            placeholder="....sector and street number...." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone number" >Enter your phone number</label>
+                                        <input type="number" class="form-control" id="number" placeholder="......07xxxxxxxx......."
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" id="button" class="btn btn-outline-success">Send</button>
                                 </form>
                             </div>
                         </div>
@@ -51,5 +65,20 @@
             </div>
             </div>
         </section>
-   
+      
+        <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <script type='text/javascript'>
+    $(document).ready(function () {
+        $("#delivery").submit(function (event) {
+            event.preventDefault();
+            var name = $("input#names").val();
+            var location = $("input#location").val();
+            if ($("input#names").val() && $("input#location").val()) {
+                alert("Hello, " + name + " located " + location + " your groceries will be delivered to you in 30 minutes,Thank you!!")
+                return;
+            }
+        });
+    });
+</script>
         {% endblock %}

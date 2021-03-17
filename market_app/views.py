@@ -19,9 +19,9 @@ from django.http import JsonResponse
 from decimal import *
 
 
-# import stripe
-# Create your views here.
-# @login_required(login_url='login')
+import random
+from django.conf import settings
+from django.views.generic.base import TemplateView
 
 
 
@@ -148,15 +148,9 @@ def profile(request, username):
 def grocery_list(request):
     object_list = Grocery.objects.all()
     categories = Category.get_category()
-    # filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
-    # current_order_groceries = []
-    # if filtered_orders.exists():
-    # 	user_order = filtered_orders[0]
-    # 	user_order_items = user_order.items.all()
-    # 	current_order_groceries = [grocery.grocery for grocery in user_order_items]
+
     context = {
         'object_list': object_list,
-        # 'current_order_groceries': current_order_groceries,
         'categories':categories
     }
     return render(request, "groceries/grocery_list.html", context)
@@ -197,14 +191,7 @@ def add_to_cart(request, item_id):
         user_order.items=order_item
         user_order.sub_total_amount = Decimal(order_item.quantity) * Decimal(int(grocery.price))
         user_order.save()
-    # order_item, status = OrderItem.objects.get_or_create(grocery=grocery)
-    # user_order, status = Order.objects.get_or_create(owner=user_profile, is_ordered=False)
-    # user_order.items.add(order_item)
-    # print(user_order)
-    
-    # user_order.ref_code = 221
-    # user_order.quantity = request.GET.get('quantity')
-    # user_order.save()
+
     messages.info(request, "item added to cart")
     return redirect(reverse('grocery_list'))
 
@@ -240,6 +227,9 @@ def checkout(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
     existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
     total_amount = 0
+    random_num =  random.randint(2345678909800, 9923456789000)
+    public_key = settings.RAVE_PUBLIC_KEY 
+    print(random_num)
     for i in existing_order:
         total_amount += i.sub_total_amount
     print(total_amount)
@@ -258,10 +248,13 @@ def checkout(request, **kwargs):
         'order': existing_order,
         'client_token': client_token,
         'form':form,
-        'total_amount': total_amount
+        'total_amount': total_amount,
+        'current_user':current_user,
+        'user_profile':user_profile,
+        'random_num':random_num,
+        'public_key':public_key
     }
     return render(request, 'shopping_cart/checkout.html', context)
-
 
 
 @login_required(login_url='login')
@@ -280,7 +273,7 @@ def admin_page(request):
             groceries = form.save(commit=False)
             # project.user = current_user
             groceries.save()
-            return redirect('index')
+            return redirect('groceries')
     else:
         form = GroceryForm()
         context = {
@@ -335,9 +328,6 @@ def orders(request):
     return render(request, 'orders.html')
 
 
-# def comment(request):
-#     return render(request, 'comment.html')
-
 def delivery(request):
     return render(request, 'delivery.html')
 
@@ -359,15 +349,6 @@ def contact(request):
 
 
 def deli(request):
-    # client_token = 222
-    # current_user = request.user
-    # user_profile = get_object_or_404(Profile, user=request.user)
-    # existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
-    # total_amount = 0
-    # for i in existing_order:
-    #     total_amount += i.sub_total_amount
-    # print(total_amount)
-    # publishKey = 111
     if request.method == 'POST':
         form = DeliveryForm(request.POST)
         if form.is_valid():
@@ -412,3 +393,10 @@ def del_orders(request, order_id):
     }
     print(order)
     return redirect('orders')        
+
+class HomePageView(TemplateView):
+    template_name = 'shopping_cart/checkout.html'
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['key'] = settings.RAVE_PUBLIC_KEY
+    return context    
