@@ -24,7 +24,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+
+
 SECRET_KEY = config('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 
@@ -81,11 +86,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'market.wsgi.application'
 
-
+MODE=config("MODE", default="dev")
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-MODE=config("MODE", default="dev")
 
 if config('MODE')=="dev":
        DATABASES = {
@@ -94,7 +97,7 @@ if config('MODE')=="dev":
            'NAME': config('DB_NAME'),
            'USER': config('DB_USER'),
            'PASSWORD': config('DB_PASSWORD'),
-           
+
        }
        
    }
@@ -111,6 +114,7 @@ DATABASES['default'].update(db_from_env)
 
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

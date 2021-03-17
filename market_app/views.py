@@ -14,6 +14,9 @@ from .forms import SignUpForm,UpdateUserProfileForm,CommentForm,RateForm,Deliver
 from .decorators import admin_only,allowed_users
 from django.contrib import messages
 import datetime
+import requests
+from django.http import JsonResponse
+from decimal import *
 
 from django.http import JsonResponse
 from decimal import *
@@ -227,9 +230,11 @@ def checkout(request, **kwargs):
     user_profile = get_object_or_404(Profile, user=request.user)
     existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
     total_amount = 0
+
     random_num =  random.randint(2345678909800, 9923456789000)
     public_key = settings.RAVE_PUBLIC_KEY 
     print(random_num)
+
     for i in existing_order:
         total_amount += i.sub_total_amount
     print(total_amount)
@@ -248,11 +253,13 @@ def checkout(request, **kwargs):
         'order': existing_order,
         'client_token': client_token,
         'form':form,
+
         'total_amount': total_amount,
         'current_user':current_user,
         'user_profile':user_profile,
         'random_num':random_num,
         'public_key':public_key
+
     }
     return render(request, 'shopping_cart/checkout.html', context)
 
@@ -341,6 +348,38 @@ def transaction(request):
 def about(request):
     return render(request,'about.html')
 
+def deli(request):
+
+    # client_token = 222
+    # current_user = request.user
+    # user_profile = get_object_or_404(Profile, user=request.user)
+    # existing_order =Order.objects.filter(owner=user_profile, is_ordered=False)
+    # total_amount = 0
+    # for i in existing_order:
+    #     total_amount += i.sub_total_amount
+    # print(total_amount)
+    # publishKey = 111
+    if request.method == 'POST':
+        form = DeliveryForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.save()
+            clear_from_cart(request)
+            return redirect('grocery_list')
+    else:
+        form = DeliveryForm()
+    context = {
+        # 'order': existing_order,
+        # 'client_token': client_token,
+        'form':form,
+        # 'total_amount': total_amount
+    }
+    return render(request, 'deliverly.html', context)
+
+# def payment(request):
+#     return render(request,'shopping_cart/payment.php')
+
 
 
 
@@ -400,3 +439,4 @@ def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['key'] = settings.RAVE_PUBLIC_KEY
     return context    
+

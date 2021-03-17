@@ -49,8 +49,10 @@ urlpatterns=[
     path('contact/',views.contact,name = 'contact'),
     path('gallery/',views.gallery,name = 'gallery'),
     path('deli/',views.deli,name = 'deli'),
+
     path('delete/transaction/<transaction_id>', del_transaction, name='del_transaction'),
     path('delete/orders/<order_id>', del_orders, name='del_orders'),
+
     url(r'^add-to-cart/(?P<item_id>[-\w]+)/$', views.add_to_cart, name="add_to_cart"),
     url(r'^order-summary/$', views.order_details, name="order_summary"),
     url(r'^item/delete/(?P<item_id>[-\w]+)/$', views.delete_from_cart, name='delete_item'),

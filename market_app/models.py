@@ -112,6 +112,8 @@ class Order(models.Model):
         #     total += OrderItem.get_final_price()
         # return total       
         return sum([item.items.grocery.subtotal for item in self.items.all()])
+
+
     def __str__(self):
         return '{0} - {1}'.format(self.owner, self.ref_code)
 class Transaction(models.Model):
@@ -161,6 +163,11 @@ class Delivery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='deliver')
     location  = models.CharField(max_length=128)
     phone = PhoneField(blank=True, help_text='Contact phone number')
+
+    # email = models.EmailField(db.String(255), unique = True, index = True)
+    # cc_expiry = CardExpiryField('expiration date')
+    # cc_code = SecurityCodeField('security code')
+
     def save_deliver(self):
         self.save()
     class Meta:
